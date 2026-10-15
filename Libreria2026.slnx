@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Libreria.Datos/Libreria.Datos.csproj" />
+  <Project Path="Libreria.Entidades/Libreria.Entidades.csproj" />
+  <Project Path="Libreria.Servicios/Libreria.Servicios.csproj" />
+  <Project Path="Libreria.Windows/Libreria.Windows.csproj" />
+</Solution>
