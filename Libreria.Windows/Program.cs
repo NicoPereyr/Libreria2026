@@ -35,6 +35,7 @@ namespace Libreria.Windows
             servicios.AddScoped<IUnitOfWork, UnitOfWork>();
 
             servicios.AddScoped<IEditorialServicio, EditorialServicio>();
+            servicios.AddScoped<IAutorServicio, AutorServicio>();
             servicios.AddTransient<frmEditoriales>();
 
             using var proveedor = servicios.BuildServiceProvider();
