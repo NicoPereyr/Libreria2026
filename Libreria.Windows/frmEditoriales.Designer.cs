@@ -1,50 +1,126 @@
-﻿namespace Libreria.Windows
+﻿
+namespace Libreria.Windows
 {
     partial class frmEditoriales
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && components != null)
                 components.Dispose();
-            }
+
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditoriales));
+            toolStrip1 = new ToolStrip();
+            tsbNuevo = new ToolStripButton();
+            tsbEditar = new ToolStripButton();
+            tsbBorrar = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            tsbActualizar = new ToolStripButton();
+            tsbCerrar = new ToolStripButton();
+            panelDatos = new Panel();
             labelNombre = new Label();
             txtNombre = new TextBox();
             labelPaisOrigen = new Label();
             txtPaisOrigen = new TextBox();
-            btnNuevo = new Button();
             btnGuardar = new Button();
-            btnEditar = new Button();
-            btnEliminar = new Button();
             btnCancelar = new Button();
             dgvEditoriales = new DataGridView();
+            panelInferior = new Panel();
+            lblCantidad = new Label();
+            toolStripLabel1 = new ToolStripLabel();
+            txtBuscar = new ToolStripTextBox();
+            tsbBuscar = new ToolStripButton();
+            toolStrip1.SuspendLayout();
+            panelDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEditoriales).BeginInit();
+            panelInferior.SuspendLayout();
             SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.ImageScalingSize = new Size(32, 32);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbEditar, tsbBorrar, toolStripSeparator1, tsbActualizar, tsbCerrar, toolStripLabel1, txtBuscar, tsbBuscar });
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Padding = new Padding(5);
+            toolStrip1.Size = new Size(900, 49);
+            toolStrip1.TabIndex = 3;
+            // 
+            // tsbNuevo
+            // 
+            tsbNuevo.AutoSize = false;
+            tsbNuevo.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbNuevo.Name = "tsbNuevo";
+            tsbNuevo.Size = new Size(90, 35);
+            tsbNuevo.Text = "Nuevo";
+            // 
+            // tsbEditar
+            // 
+            tsbEditar.AutoSize = false;
+            tsbEditar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbEditar.Name = "tsbEditar";
+            tsbEditar.Size = new Size(90, 35);
+            tsbEditar.Text = "Editar";
+            // 
+            // tsbBorrar
+            // 
+            tsbBorrar.AutoSize = false;
+            tsbBorrar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbBorrar.Name = "tsbBorrar";
+            tsbBorrar.Size = new Size(90, 35);
+            tsbBorrar.Text = "Borrar";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 39);
+            // 
+            // tsbActualizar
+            // 
+            tsbActualizar.AutoSize = false;
+            tsbActualizar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbActualizar.Name = "tsbActualizar";
+            tsbActualizar.Size = new Size(90, 35);
+            tsbActualizar.Text = "Actualizar";
+            // 
+            // tsbCerrar
+            // 
+            tsbCerrar.Alignment = ToolStripItemAlignment.Right;
+            tsbCerrar.AutoSize = false;
+            tsbCerrar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbCerrar.Name = "tsbCerrar";
+            tsbCerrar.Size = new Size(90, 35);
+            tsbCerrar.Text = "Cerrar";
+            // 
+            // panelDatos
+            // 
+            panelDatos.BackColor = Color.WhiteSmoke;
+            panelDatos.Controls.Add(labelNombre);
+            panelDatos.Controls.Add(txtNombre);
+            panelDatos.Controls.Add(labelPaisOrigen);
+            panelDatos.Controls.Add(txtPaisOrigen);
+            panelDatos.Controls.Add(btnGuardar);
+            panelDatos.Controls.Add(btnCancelar);
+            panelDatos.Dock = DockStyle.Top;
+            panelDatos.Location = new Point(0, 49);
+            panelDatos.Name = "panelDatos";
+            panelDatos.Size = new Size(900, 150);
+            panelDatos.TabIndex = 2;
             // 
             // labelNombre
             // 
             labelNombre.AutoSize = true;
-            labelNombre.Location = new Point(36, 36);
+            labelNombre.Location = new Point(25, 25);
             labelNombre.Name = "labelNombre";
             labelNombre.Size = new Size(54, 15);
             labelNombre.TabIndex = 0;
@@ -52,114 +128,149 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(40, 54);
+            txtNombre.Location = new Point(25, 48);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(100, 23);
-            txtNombre.TabIndex = 1;
+            txtNombre.Size = new Size(280, 23);
+            txtNombre.TabIndex = 0;
             // 
             // labelPaisOrigen
             // 
             labelPaisOrigen.AutoSize = true;
-            labelPaisOrigen.Location = new Point(36, 88);
+            labelPaisOrigen.Location = new Point(330, 25);
             labelPaisOrigen.Name = "labelPaisOrigen";
-            labelPaisOrigen.Size = new Size(89, 15);
-            labelPaisOrigen.TabIndex = 2;
-            labelPaisOrigen.Text = "Pais  de Origen:";
+            labelPaisOrigen.Size = new Size(84, 15);
+            labelPaisOrigen.TabIndex = 1;
+            labelPaisOrigen.Text = "País de origen:";
             // 
             // txtPaisOrigen
             // 
-            txtPaisOrigen.Location = new Point(36, 106);
+            txtPaisOrigen.Location = new Point(330, 48);
             txtPaisOrigen.Name = "txtPaisOrigen";
-            txtPaisOrigen.Size = new Size(100, 23);
-            txtPaisOrigen.TabIndex = 3;
-            // 
-            // btnNuevo
-            // 
-            btnNuevo.Location = new Point(36, 152);
-            btnNuevo.Name = "btnNuevo";
-            btnNuevo.Size = new Size(75, 47);
-            btnNuevo.TabIndex = 4;
-            btnNuevo.Text = "Nuevo";
-            btnNuevo.UseVisualStyleBackColor = true;
+            txtPaisOrigen.Size = new Size(250, 23);
+            txtPaisOrigen.TabIndex = 1;
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(153, 152);
+            btnGuardar.Location = new Point(25, 95);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(75, 47);
-            btnGuardar.TabIndex = 5;
+            btnGuardar.Size = new Size(110, 35);
+            btnGuardar.TabIndex = 2;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
             // 
-            // btnEditar
-            // 
-            btnEditar.Location = new Point(261, 152);
-            btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(75, 47);
-            btnEditar.TabIndex = 6;
-            btnEditar.Text = "Editar";
-            btnEditar.UseVisualStyleBackColor = true;
-            // 
-            // btnEliminar
-            // 
-            btnEliminar.Location = new Point(375, 152);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(75, 47);
-            btnEliminar.TabIndex = 7;
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseVisualStyleBackColor = true;
-            // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(490, 152);
+            btnCancelar.Location = new Point(150, 95);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(75, 47);
-            btnCancelar.TabIndex = 8;
+            btnCancelar.Size = new Size(110, 35);
+            btnCancelar.TabIndex = 3;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
             // dgvEditoriales
             // 
-            dgvEditoriales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEditoriales.Dock = DockStyle.Bottom;
-            dgvEditoriales.Location = new Point(0, 222);
+            dgvEditoriales.AllowUserToAddRows = false;
+            dgvEditoriales.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 235, 235);
+            dgvEditoriales.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvEditoriales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvEditoriales.BackgroundColor = Color.White;
+            dgvEditoriales.BorderStyle = BorderStyle.None;
+            dgvEditoriales.Dock = DockStyle.Fill;
+            dgvEditoriales.Location = new Point(0, 199);
+            dgvEditoriales.MultiSelect = false;
             dgvEditoriales.Name = "dgvEditoriales";
-            dgvEditoriales.Size = new Size(800, 228);
-            dgvEditoriales.TabIndex = 9;
+            dgvEditoriales.ReadOnly = true;
+            dgvEditoriales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEditoriales.Size = new Size(900, 306);
+            dgvEditoriales.TabIndex = 0;
+            // 
+            // panelInferior
+            // 
+            panelInferior.BackColor = Color.WhiteSmoke;
+            panelInferior.Controls.Add(lblCantidad);
+            panelInferior.Dock = DockStyle.Bottom;
+            panelInferior.Location = new Point(0, 505);
+            panelInferior.Name = "panelInferior";
+            panelInferior.Size = new Size(900, 45);
+            panelInferior.TabIndex = 1;
+            // 
+            // lblCantidad
+            // 
+            lblCantidad.AutoSize = true;
+            lblCantidad.Location = new Point(20, 15);
+            lblCantidad.Name = "lblCantidad";
+            lblCantidad.Size = new Size(131, 15);
+            lblCantidad.TabIndex = 0;
+            lblCantidad.Text = "Cantidad de registros: 0";
+            // 
+            // toolStripLabel1
+            // 
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.Size = new Size(45, 36);
+            toolStripLabel1.Text = "Buscar:";
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(150, 39);
+            // 
+            // tsbBuscar
+            // 
+            tsbBuscar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbBuscar.Image = (Image)resources.GetObject("tsbBuscar.Image");
+            tsbBuscar.ImageTransparentColor = Color.Magenta;
+            tsbBuscar.Name = "tsbBuscar";
+            tsbBuscar.Size = new Size(36, 36);
+            tsbBuscar.Text = "Buscar";
             // 
             // frmEditoriales
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(900, 550);
             Controls.Add(dgvEditoriales);
-            Controls.Add(btnCancelar);
-            Controls.Add(btnEliminar);
-            Controls.Add(btnEditar);
-            Controls.Add(btnGuardar);
-            Controls.Add(btnNuevo);
-            Controls.Add(txtPaisOrigen);
-            Controls.Add(labelPaisOrigen);
-            Controls.Add(txtNombre);
-            Controls.Add(labelNombre);
+            Controls.Add(panelInferior);
+            Controls.Add(panelDatos);
+            Controls.Add(toolStrip1);
             Name = "frmEditoriales";
-            Text = "frmEditoriales";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Gestión de Editoriales";
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            panelDatos.ResumeLayout(false);
+            panelDatos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEditoriales).EndInit();
+            panelInferior.ResumeLayout(false);
+            panelInferior.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
+        private ToolStrip toolStrip1;
+        private ToolStripButton tsbNuevo;
+        private ToolStripButton tsbEditar;
+        private ToolStripButton tsbBorrar;
+        private ToolStripButton tsbActualizar;
+        private ToolStripButton tsbCerrar;
+        private ToolStripSeparator toolStripSeparator1;
+
+        private Panel panelDatos;
         private Label labelNombre;
         private TextBox txtNombre;
         private Label labelPaisOrigen;
         private TextBox txtPaisOrigen;
-        private Button btnNuevo;
+
         private Button btnGuardar;
-        private Button btnEditar;
-        private Button btnEliminar;
         private Button btnCancelar;
+
         private DataGridView dgvEditoriales;
+        private Panel panelInferior;
+        private Label lblCantidad;
+        private ToolStripLabel toolStripLabel1;
+        private ToolStripTextBox txtBuscar;
+        private ToolStripButton tsbBuscar;
     }
 }
