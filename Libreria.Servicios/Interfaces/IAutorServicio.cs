@@ -11,5 +11,6 @@ namespace Libreria.Servicios.Interfaces
         void Editar(Autor autor);
         void Eliminar(int id);
     }
+
 }
 
