@@ -33,6 +33,7 @@ namespace Libreria.Windows
             dgvEditoriales.DataSource = null;
             dgvEditoriales.DataSource =
                 _editorialServicio.ObtenerTodas();
+            dgvEditoriales.Columns["EditorialId"].Visible = false;
         }
 
         private void LimpiarCampos()
