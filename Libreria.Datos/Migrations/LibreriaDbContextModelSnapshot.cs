@@ -22,6 +22,21 @@ namespace Libreria.Datos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AutorLibro", b =>
+                {
+                    b.Property<int>("AutoresAutorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LibroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AutoresAutorId", "LibroId");
+
+                    b.HasIndex("LibroId");
+
+                    b.ToTable("LibrosAutores", (string)null);
+                });
+
             modelBuilder.Entity("Libreria.Entidades.Autores.Autor", b =>
                 {
                     b.Property<int>("AutorId")
@@ -32,22 +47,25 @@ namespace Libreria.Datos.Migrations
 
                     b.Property<string>("Apellido")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Nacionalidad")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("AutorId");
 
-                    b.ToTable("Autores");
+                    b.ToTable("Autores", (string)null);
                 });
 
             modelBuilder.Entity("Libreria.Entidades.Editoriales.Editorial", b =>
@@ -59,19 +77,72 @@ namespace Libreria.Datos.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EditorialId"));
 
                     b.Property<bool>("Activa")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PaisOrigen")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("EditorialId");
 
-                    b.ToTable("Editoriales");
+                    b.ToTable("Editoriales", (string)null);
+                });
+
+            modelBuilder.Entity("Libreria.Entidades.Libros.Libro", b =>
+                {
+                    b.Property<int>("LibroId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LibroId"));
+
+                    b.Property<bool>("Activo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<int>("AnioPublicacion")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("EditorialId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Precio")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TipoLibro")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("LibroId");
+
+                    b.HasIndex("EditorialId");
+
+                    b.ToTable("Libros", (string)null);
+
+                    b.HasDiscriminator<string>("TipoLibro").HasValue("Libro");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Libreria.Entidades.Temas.Tema", b =>
@@ -83,15 +154,122 @@ namespace Libreria.Datos.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TemaId"));
 
                     b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("TemaId");
 
-                    b.ToTable("Temas");
+                    b.ToTable("Temas", (string)null);
+                });
+
+            modelBuilder.Entity("LibroTema", b =>
+                {
+                    b.Property<int>("LibroId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TemasTemaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LibroId", "TemasTemaId");
+
+                    b.HasIndex("TemasTemaId");
+
+                    b.ToTable("LibrosTemas", (string)null);
+                });
+
+            modelBuilder.Entity("Libreria.Entidades.Libros.LibroDigital", b =>
+                {
+                    b.HasBaseType("Libreria.Entidades.Libros.Libro");
+
+                    b.Property<string>("Formato")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("IdentificadorDigital")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("TamanioMB")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UrlDescarga")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasIndex("IdentificadorDigital")
+                        .IsUnique()
+                        .HasFilter("[IdentificadorDigital] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("Digital");
+                });
+
+            modelBuilder.Entity("Libreria.Entidades.Libros.LibroFisico", b =>
+                {
+                    b.HasBaseType("Libreria.Entidades.Libros.Libro");
+
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ISBN")
+                        .IsUnique()
+                        .HasFilter("[ISBN] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("Fisico");
+                });
+
+            modelBuilder.Entity("AutorLibro", b =>
+                {
+                    b.HasOne("Libreria.Entidades.Autores.Autor", null)
+                        .WithMany()
+                        .HasForeignKey("AutoresAutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Libreria.Entidades.Libros.Libro", null)
+                        .WithMany()
+                        .HasForeignKey("LibroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Libreria.Entidades.Libros.Libro", b =>
+                {
+                    b.HasOne("Libreria.Entidades.Editoriales.Editorial", "Editorial")
+                        .WithMany()
+                        .HasForeignKey("EditorialId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Editorial");
+                });
+
+            modelBuilder.Entity("LibroTema", b =>
+                {
+                    b.HasOne("Libreria.Entidades.Libros.Libro", null)
+                        .WithMany()
+                        .HasForeignKey("LibroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Libreria.Entidades.Temas.Tema", null)
+                        .WithMany()
+                        .HasForeignKey("TemasTemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

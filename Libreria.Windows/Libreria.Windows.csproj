@@ -53,6 +53,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Libreria.Datos\Libreria.Datos.csproj" />
+    <ProjectReference Include="..\Libreria.DTOs\Libreria.DTOs.csproj" />
     <ProjectReference Include="..\Libreria.Entidades\Libreria.Entidades.csproj" />
     <ProjectReference Include="..\Libreria.Servicios\Libreria.Servicios.csproj" />
   </ItemGroup>

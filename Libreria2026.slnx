@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Libreria.Datos/Libreria.Datos.csproj" />
+  <Project Path="Libreria.DTOs/Libreria.DTOs.csproj" Id="d29cd0c5-6fad-4aa3-8e49-81b53732e1d4" />
   <Project Path="Libreria.Entidades/Libreria.Entidades.csproj" />
   <Project Path="Libreria.Servicios/Libreria.Servicios.csproj" />
   <Project Path="Libreria.Windows/Libreria.Windows.csproj" />
