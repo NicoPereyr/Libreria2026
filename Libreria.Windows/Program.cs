@@ -33,7 +33,7 @@ namespace Libreria.Windows
             servicios.AddScoped<IAutorRepositorio, AutorRepositorio>();
             servicios.AddScoped<IEditorialRepositorio, EditorialRepositorio>();
             servicios.AddScoped<ITemaRepositorio, TemaRepositorio>();
-
+            servicios.AddScoped<ILibroRepositorio, LibroRepositorio>();
             // Unit of Work
             servicios.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -41,6 +41,7 @@ namespace Libreria.Windows
             servicios.AddScoped<IEditorialServicio, EditorialServicio>();
             servicios.AddScoped<IAutorServicio, AutorServicio>();
             servicios.AddScoped<ITemaServicio, TemaServicio>();
+            servicios.AddScoped<ILibroServicio, LibroServicio>();
 
             // Formularios
             servicios.AddTransient<frmPrincipal>();

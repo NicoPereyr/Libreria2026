@@ -13,6 +13,8 @@ namespace Libreria.Datos.Interfaces
 
         ITemaRepositorio Temas { get; }
 
+        ILibroRepositorio Libros { get; }
+
         void Guardar();
 
         void Dispose();
