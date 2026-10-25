@@ -17,8 +17,8 @@ namespace Libreria.Windows
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditoriales));
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             toolStrip1 = new ToolStrip();
             tsbNuevo = new ToolStripButton();
             tsbEditar = new ToolStripButton();
@@ -26,7 +26,11 @@ namespace Libreria.Windows
             toolStripSeparator1 = new ToolStripSeparator();
             tsbActualizar = new ToolStripButton();
             tsbCerrar = new ToolStripButton();
+            toolStripLabel1 = new ToolStripLabel();
+            txtBuscar = new ToolStripTextBox();
+            tsbBuscar = new ToolStripButton();
             panelDatos = new Panel();
+            chkActiva = new CheckBox();
             labelNombre = new Label();
             txtNombre = new TextBox();
             labelPaisOrigen = new Label();
@@ -36,9 +40,6 @@ namespace Libreria.Windows
             dgvEditoriales = new DataGridView();
             panelInferior = new Panel();
             lblCantidad = new Label();
-            toolStripLabel1 = new ToolStripLabel();
-            txtBuscar = new ToolStripTextBox();
-            tsbBuscar = new ToolStripButton();
             toolStrip1.SuspendLayout();
             panelDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEditoriales).BeginInit();
@@ -102,9 +103,30 @@ namespace Libreria.Windows
             tsbCerrar.Size = new Size(90, 35);
             tsbCerrar.Text = "Cerrar";
             // 
+            // toolStripLabel1
+            // 
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.Size = new Size(45, 36);
+            toolStripLabel1.Text = "Buscar:";
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(150, 39);
+            // 
+            // tsbBuscar
+            // 
+            tsbBuscar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbBuscar.Image = (Image)resources.GetObject("tsbBuscar.Image");
+            tsbBuscar.ImageTransparentColor = Color.Magenta;
+            tsbBuscar.Name = "tsbBuscar";
+            tsbBuscar.Size = new Size(36, 36);
+            tsbBuscar.Text = "Buscar";
+            // 
             // panelDatos
             // 
             panelDatos.BackColor = Color.WhiteSmoke;
+            panelDatos.Controls.Add(chkActiva);
             panelDatos.Controls.Add(labelNombre);
             panelDatos.Controls.Add(txtNombre);
             panelDatos.Controls.Add(labelPaisOrigen);
@@ -116,6 +138,18 @@ namespace Libreria.Windows
             panelDatos.Name = "panelDatos";
             panelDatos.Size = new Size(900, 150);
             panelDatos.TabIndex = 2;
+            // 
+            // chkActiva
+            // 
+            chkActiva.AutoSize = true;
+            chkActiva.Checked = true;
+            chkActiva.CheckState = CheckState.Checked;
+            chkActiva.Location = new Point(605, 48);
+            chkActiva.Name = "chkActiva";
+            chkActiva.Size = new Size(103, 19);
+            chkActiva.TabIndex = 4;
+            chkActiva.Text = "Editorial activa";
+            chkActiva.UseVisualStyleBackColor = true;
             // 
             // labelNombre
             // 
@@ -171,8 +205,8 @@ namespace Libreria.Windows
             // 
             dgvEditoriales.AllowUserToAddRows = false;
             dgvEditoriales.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 235, 235);
-            dgvEditoriales.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(235, 235, 235);
+            dgvEditoriales.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             dgvEditoriales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvEditoriales.BackgroundColor = Color.White;
             dgvEditoriales.BorderStyle = BorderStyle.None;
@@ -203,26 +237,6 @@ namespace Libreria.Windows
             lblCantidad.Size = new Size(131, 15);
             lblCantidad.TabIndex = 0;
             lblCantidad.Text = "Cantidad de registros: 0";
-            // 
-            // toolStripLabel1
-            // 
-            toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(45, 36);
-            toolStripLabel1.Text = "Buscar:";
-            // 
-            // txtBuscar
-            // 
-            txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(150, 39);
-            // 
-            // tsbBuscar
-            // 
-            tsbBuscar.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbBuscar.Image = (Image)resources.GetObject("tsbBuscar.Image");
-            tsbBuscar.ImageTransparentColor = Color.Magenta;
-            tsbBuscar.Name = "tsbBuscar";
-            tsbBuscar.Size = new Size(36, 36);
-            tsbBuscar.Text = "Buscar";
             // 
             // frmEditoriales
             // 
@@ -272,5 +286,6 @@ namespace Libreria.Windows
         private ToolStripLabel toolStripLabel1;
         private ToolStripTextBox txtBuscar;
         private ToolStripButton tsbBuscar;
+        private CheckBox chkActiva;
     }
 }

@@ -41,11 +41,12 @@ namespace Libreria.Windows
 
         private void btnTemas_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show(
-                "Próximamente: Gestión de Temas",
-                "Información",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            using var scope = _serviceProvider.CreateScope();
+
+            using var formulario = scope.ServiceProvider
+                .GetRequiredService<frmTemas>();
+
+            formulario.ShowDialog(this);
         }
     }
 }

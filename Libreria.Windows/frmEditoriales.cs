@@ -135,6 +135,12 @@ namespace Libreria.Windows
         {
             txtNombre.Clear();
             txtPaisOrigen.Clear();
+
+            chkActiva.Checked = true;
+
+            dgvEditoriales.ClearSelection();
+            dgvEditoriales.CurrentCell = null;
+
             txtNombre.Focus();
         }
 
@@ -181,7 +187,8 @@ namespace Libreria.Windows
                 var editorial = new Libreria.Entidades.Editoriales.Editorial
                 {
                     Nombre = txtNombre.Text.Trim(),
-                    PaisOrigen = txtPaisOrigen.Text.Trim()
+                    PaisOrigen = txtPaisOrigen.Text.Trim(),
+                    Activa = chkActiva.Checked
                 };
 
                 _editorialServicio.Agregar(editorial);
@@ -207,11 +214,15 @@ namespace Libreria.Windows
 
         private void dgvEditoriales_SelectionChanged(object? sender, EventArgs e)
         {
-            if (dgvEditoriales.CurrentRow?.DataBoundItem
+            if (dgvEditoriales.SelectedRows.Count == 0)
+                return;
+
+            if (dgvEditoriales.SelectedRows[0].DataBoundItem
                 is Libreria.Entidades.Editoriales.Editorial editorial)
             {
                 txtNombre.Text = editorial.Nombre;
                 txtPaisOrigen.Text = editorial.PaisOrigen;
+                chkActiva.Checked = editorial.Activa;
             }
         }
 
@@ -247,6 +258,7 @@ namespace Libreria.Windows
             {
                 editorial.Nombre = txtNombre.Text.Trim();
                 editorial.PaisOrigen = txtPaisOrigen.Text.Trim();
+                editorial.Activa = chkActiva.Checked;
 
                 _editorialServicio.Editar(editorial);
 

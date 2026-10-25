@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Libreria.Entidades.Editoriales
+﻿namespace Libreria.Entidades.Editoriales
 {
     public class Editorial
     {
@@ -11,5 +7,7 @@ namespace Libreria.Entidades.Editoriales
         public string Nombre { get; set; } = string.Empty;
 
         public string PaisOrigen { get; set; } = string.Empty;
+
+        public bool Activa { get; set; } = true;
     }
 }

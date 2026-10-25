@@ -40,11 +40,13 @@ namespace Libreria.Windows
             // Servicios
             servicios.AddScoped<IEditorialServicio, EditorialServicio>();
             servicios.AddScoped<IAutorServicio, AutorServicio>();
+            servicios.AddScoped<ITemaServicio, TemaServicio>();
 
             // Formularios
             servicios.AddTransient<frmPrincipal>();
             servicios.AddTransient<frmEditoriales>();
             servicios.AddTransient<frmAutores>();
+            servicios.AddTransient<frmTemas>();
 
             using var proveedor = servicios.BuildServiceProvider();
             using var alcance = proveedor.CreateScope();
