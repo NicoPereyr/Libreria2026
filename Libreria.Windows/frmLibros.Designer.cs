@@ -377,9 +377,10 @@
             // 
             dgvLibros.AllowUserToAddRows = false;
             dgvLibros.AllowUserToDeleteRows = false;
+            dgvLibros.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvLibros.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLibros.Location = new Point(-1, 617);
+            dgvLibros.Location = new Point(20, 650);
             dgvLibros.MultiSelect = false;
             dgvLibros.Name = "dgvLibros";
             dgvLibros.ReadOnly = true;

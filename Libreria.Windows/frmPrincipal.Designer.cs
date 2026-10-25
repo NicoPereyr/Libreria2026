@@ -31,11 +31,12 @@
             btnAutores = new Button();
             btnEditoriales = new Button();
             btnTemas = new Button();
+            btnLibros = new Button();
             SuspendLayout();
             // 
             // btnAutores
             // 
-            btnAutores.Location = new Point(99, 153);
+            btnAutores.Location = new Point(13, 153);
             btnAutores.Name = "btnAutores";
             btnAutores.Size = new Size(160, 70);
             btnAutores.TabIndex = 0;
@@ -44,7 +45,7 @@
             // 
             // btnEditoriales
             // 
-            btnEditoriales.Location = new Point(280, 153);
+            btnEditoriales.Location = new Point(194, 153);
             btnEditoriales.Name = "btnEditoriales";
             btnEditoriales.Size = new Size(160, 70);
             btnEditoriales.TabIndex = 1;
@@ -53,18 +54,28 @@
             // 
             // btnTemas
             // 
-            btnTemas.Location = new Point(462, 153);
+            btnTemas.Location = new Point(376, 153);
             btnTemas.Name = "btnTemas";
             btnTemas.Size = new Size(160, 70);
             btnTemas.TabIndex = 2;
             btnTemas.Text = "Temas";
             btnTemas.UseVisualStyleBackColor = true;
             // 
+            // btnLibros
+            // 
+            btnLibros.Location = new Point(566, 153);
+            btnLibros.Name = "btnLibros";
+            btnLibros.Size = new Size(160, 70);
+            btnLibros.TabIndex = 3;
+            btnLibros.Text = "Libros";
+            btnLibros.UseVisualStyleBackColor = true;
+            // 
             // frmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(634, 361);
+            ClientSize = new Size(738, 361);
+            Controls.Add(btnLibros);
             Controls.Add(btnTemas);
             Controls.Add(btnEditoriales);
             Controls.Add(btnAutores);
@@ -81,5 +92,6 @@
         private Button btnAutores;
         private Button btnEditoriales;
         private Button btnTemas;
+        private Button btnLibros;
     }
 }
