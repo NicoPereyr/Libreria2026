@@ -37,20 +37,20 @@
             lblAnio = new Label();
             nudAnio = new NumericUpDown();
             lblPrecio = new Label();
-            numericUpDown1 = new NumericUpDown();
+            nudPrecio = new NumericUpDown();
             lblEditorial = new Label();
             cboEditorial = new ComboBox();
             chkActivo = new CheckBox();
             lblISBN = new Label();
             txtISBN = new TextBox();
             lblStock = new Label();
-            numericUpDown2 = new NumericUpDown();
+            nudStock = new NumericUpDown();
             lblIdentificadorDigital = new Label();
             txtIdentificadorDigital = new TextBox();
             lblFormato = new Label();
             cboFormato = new ComboBox();
             lblTamanioMB = new Label();
-            numericUpDown3 = new NumericUpDown();
+            nudTamanioMB = new NumericUpDown();
             lblUrlDescarga = new Label();
             txtUrlDescarga = new TextBox();
             clbAutores = new CheckedListBox();
@@ -64,9 +64,9 @@
             btnCancelar = new Button();
             dgvLibros = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)nudAnio).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudPrecio).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudTamanioMB).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvLibros).BeginInit();
             SuspendLayout();
             // 
@@ -151,14 +151,14 @@
             lblPrecio.TabIndex = 8;
             lblPrecio.Text = "Precio:";
             // 
-            // numericUpDown1
+            // nudPrecio
             // 
-            numericUpDown1.DecimalPlaces = 2;
-            numericUpDown1.Location = new Point(66, 227);
-            numericUpDown1.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(120, 23);
-            numericUpDown1.TabIndex = 9;
+            nudPrecio.DecimalPlaces = 2;
+            nudPrecio.Location = new Point(66, 227);
+            nudPrecio.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+            nudPrecio.Name = "nudPrecio";
+            nudPrecio.Size = new Size(120, 23);
+            nudPrecio.TabIndex = 9;
             // 
             // lblEditorial
             // 
@@ -215,13 +215,13 @@
             lblStock.TabIndex = 15;
             lblStock.Text = "Stock:";
             // 
-            // numericUpDown2
+            // nudStock
             // 
-            numericUpDown2.Location = new Point(56, 393);
-            numericUpDown2.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(120, 23);
-            numericUpDown2.TabIndex = 16;
+            nudStock.Location = new Point(56, 393);
+            nudStock.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            nudStock.Name = "nudStock";
+            nudStock.Size = new Size(120, 23);
+            nudStock.TabIndex = 16;
             // 
             // lblIdentificadorDigital
             // 
@@ -267,14 +267,14 @@
             lblTamanioMB.TabIndex = 21;
             lblTamanioMB.Text = "Tamaño (MB)";
             // 
-            // numericUpDown3
+            // nudTamanioMB
             // 
-            numericUpDown3.DecimalPlaces = 2;
-            numericUpDown3.Location = new Point(96, 498);
-            numericUpDown3.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(120, 23);
-            numericUpDown3.TabIndex = 22;
+            nudTamanioMB.DecimalPlaces = 2;
+            nudTamanioMB.Location = new Point(96, 498);
+            nudTamanioMB.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            nudTamanioMB.Name = "nudTamanioMB";
+            nudTamanioMB.Size = new Size(120, 23);
+            nudTamanioMB.TabIndex = 22;
             // 
             // lblUrlDescarga
             // 
@@ -405,20 +405,20 @@
             Controls.Add(clbAutores);
             Controls.Add(txtUrlDescarga);
             Controls.Add(lblUrlDescarga);
-            Controls.Add(numericUpDown3);
+            Controls.Add(nudTamanioMB);
             Controls.Add(lblTamanioMB);
             Controls.Add(cboFormato);
             Controls.Add(lblFormato);
             Controls.Add(txtIdentificadorDigital);
             Controls.Add(lblIdentificadorDigital);
-            Controls.Add(numericUpDown2);
+            Controls.Add(nudStock);
             Controls.Add(lblStock);
             Controls.Add(txtISBN);
             Controls.Add(lblISBN);
             Controls.Add(chkActivo);
             Controls.Add(cboEditorial);
             Controls.Add(lblEditorial);
-            Controls.Add(numericUpDown1);
+            Controls.Add(nudPrecio);
             Controls.Add(lblPrecio);
             Controls.Add(nudAnio);
             Controls.Add(lblAnio);
@@ -433,9 +433,9 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Administración de Libros";
             ((System.ComponentModel.ISupportInitialize)nudAnio).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudPrecio).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudStock).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudTamanioMB).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvLibros).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -452,20 +452,20 @@
         private Label lblAnio;
         private NumericUpDown nudAnio;
         private Label lblPrecio;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown nudPrecio;
         private Label lblEditorial;
         private ComboBox cboEditorial;
         private CheckBox chkActivo;
         private Label lblISBN;
         private TextBox txtISBN;
         private Label lblStock;
-        private NumericUpDown numericUpDown2;
+        private NumericUpDown nudStock;
         private Label lblIdentificadorDigital;
         private TextBox txtIdentificadorDigital;
         private Label lblFormato;
         private ComboBox cboFormato;
         private Label lblTamanioMB;
-        private NumericUpDown numericUpDown3;
+        private NumericUpDown nudTamanioMB;
         private Label lblUrlDescarga;
         private TextBox txtUrlDescarga;
         private CheckedListBox clbAutores;
