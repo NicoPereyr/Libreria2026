@@ -33,6 +33,7 @@ namespace Libreria.Windows
             btnGuardar.Click += btnGuardar_Click;
             btnCancelar.Click += btnCancelar_Click;
             btnEditar.Click += btnEditar_Click;
+            btnEliminar.Click += btnEliminar_Click;
         }
 
         private void frmLibros_Load(object? sender, EventArgs e)
@@ -243,6 +244,17 @@ namespace Libreria.Windows
                     txtTitulo.Focus();
                     return;
                 }
+                if (nudPrecio.Value <= 0)
+                {
+                    MessageBox.Show(
+                        "El precio del libro debe ser mayor a cero.",
+                        "Validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    nudPrecio.Focus();
+                    return;
+                }
 
                 if (cboEditorial.SelectedIndex == -1)
                 {
@@ -250,13 +262,47 @@ namespace Libreria.Windows
                     return;
                 }
 
-                if (cboTipoLibro.SelectedItem?.ToString() == "Físico" &&
-                    string.IsNullOrWhiteSpace(txtISBN.Text))
+
+                if (cboTipoLibro.SelectedItem?.ToString() == "Físico")
                 {
-                    MessageBox.Show("Ingresá el ISBN del libro.");
-                    txtISBN.Focus();
-                    return;
+                    string isbn = txtISBN.Text.Trim();
+
+                    if (string.IsNullOrWhiteSpace(isbn))
+                    {
+                        MessageBox.Show("Ingresá el ISBN del libro.");
+                        txtISBN.Focus();
+                        return;
+                    }
+
+                    if (isbn.Length != 13 || !isbn.All(char.IsDigit))
+                    {
+                        MessageBox.Show(
+                            "El ISBN debe contener exactamente 13 dígitos numéricos.",
+                            "Validación",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        txtISBN.Focus();
+                        return;
+                    }
+
+                    if (cboTipoLibro.SelectedItem?.ToString() == "Físico")
+                    {
+                        if (nudStock.Value < 0)
+                        {
+                            MessageBox.Show(
+                                "El stock no puede ser negativo.",
+                                "Validación",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+
+                            nudStock.Focus();
+                            return;
+                        }
+                    }
+
                 }
+
 
                 // Obtener los autores seleccionados
                 var autoresIds = clbAutores.CheckedItems
@@ -273,26 +319,55 @@ namespace Libreria.Windows
 
                 string tipoLibro = cboTipoLibro.SelectedItem?.ToString() ?? "";
 
+
                 if (tipoLibro == "Físico")
                 {
-                    var dto = new LibroFisicoCreateDto
+                    if (_libroIdSeleccionado.HasValue)
                     {
-                        Titulo = txtTitulo.Text.Trim(),
-                        Descripcion = txtDescripcion.Text.Trim(),
-                        AnioPublicacion = (int)nudAnio.Value,
-                        Precio = nudPrecio.Value,
-                        Activo = chkActivo.Checked,
-                        EditorialId = Convert.ToInt32(cboEditorial.SelectedValue),
+                        // Estamos editando un libro físico existente
+                        var dto = new LibroFisicoUpdateDto
+                        {
+                            LibroId = _libroIdSeleccionado.Value,
+                            Titulo = txtTitulo.Text.Trim(),
+                            Descripcion = txtDescripcion.Text.Trim(),
+                            AnioPublicacion = (int)nudAnio.Value,
+                            Precio = nudPrecio.Value,
+                            Activo = chkActivo.Checked,
+                            EditorialId = Convert.ToInt32(cboEditorial.SelectedValue),
 
-                        ISBN = txtISBN.Text.Trim(),
-                        Stock = (int)nudStock.Value,
+                            ISBN = txtISBN.Text.Trim(),
+                            Stock = (int)nudStock.Value,
 
-                        AutoresIds = autoresIds,
-                        TemasIds = temasIds
-                    };
+                            AutoresIds = autoresIds,
+                            TemasIds = temasIds
+                        };
 
-                    _libroServicio.AgregarFisico(dto);
+                        _libroServicio.EditarFisico(dto);
+                    }
+                    else
+                    {
+                        // Estamos agregando un libro físico nuevo
+                        var dto = new LibroFisicoCreateDto
+                        {
+                            Titulo = txtTitulo.Text.Trim(),
+                            Descripcion = txtDescripcion.Text.Trim(),
+                            AnioPublicacion = (int)nudAnio.Value,
+                            Precio = nudPrecio.Value,
+                            Activo = chkActivo.Checked,
+                            EditorialId = Convert.ToInt32(cboEditorial.SelectedValue),
+
+                            ISBN = txtISBN.Text.Trim(),
+                            Stock = (int)nudStock.Value,
+
+                            AutoresIds = autoresIds,
+                            TemasIds = temasIds
+                        };
+
+                        _libroServicio.AgregarFisico(dto);
+                    }
                 }
+
+
                 else if (tipoLibro == "Digital")
                 {
                     if (string.IsNullOrWhiteSpace(txtIdentificadorDigital.Text))
@@ -315,26 +390,55 @@ namespace Libreria.Windows
                         return;
                     }
 
-                    var dto = new LibroDigitalCreateDto
+                    if (_libroIdSeleccionado.HasValue)
                     {
-                        Titulo = txtTitulo.Text.Trim(),
-                        Descripcion = txtDescripcion.Text.Trim(),
-                        AnioPublicacion = (int)nudAnio.Value,
-                        Precio = nudPrecio.Value,
-                        Activo = chkActivo.Checked,
-                        EditorialId = Convert.ToInt32(cboEditorial.SelectedValue),
+                        // Editar un libro digital existente
+                        var dto = new LibroDigitalUpdateDto
+                        {
+                            LibroId = _libroIdSeleccionado.Value,
+                            Titulo = txtTitulo.Text.Trim(),
+                            Descripcion = txtDescripcion.Text.Trim(),
+                            AnioPublicacion = (int)nudAnio.Value,
+                            Precio = nudPrecio.Value,
+                            Activo = chkActivo.Checked,
+                            EditorialId = Convert.ToInt32(cboEditorial.SelectedValue),
 
-                        IdentificadorDigital = txtIdentificadorDigital.Text.Trim(),
-                        Formato = cboFormato.SelectedItem!.ToString()!,
-                        TamanioMB = nudTamanioMB.Value,
-                        UrlDescarga = txtUrlDescarga.Text.Trim(),
+                            IdentificadorDigital = txtIdentificadorDigital.Text.Trim(),
+                            Formato = cboFormato.SelectedItem!.ToString()!,
+                            TamanioMB = nudTamanioMB.Value,
+                            UrlDescarga = txtUrlDescarga.Text.Trim(),
 
-                        AutoresIds = autoresIds,
-                        TemasIds = temasIds
-                    };
+                            AutoresIds = autoresIds,
+                            TemasIds = temasIds
+                        };
 
-                    _libroServicio.AgregarDigital(dto);
+                        _libroServicio.EditarDigital(dto);
+                    }
+                    else
+                    {
+                        // Agregar un libro digital nuevo
+                        var dto = new LibroDigitalCreateDto
+                        {
+                            Titulo = txtTitulo.Text.Trim(),
+                            Descripcion = txtDescripcion.Text.Trim(),
+                            AnioPublicacion = (int)nudAnio.Value,
+                            Precio = nudPrecio.Value,
+                            Activo = chkActivo.Checked,
+                            EditorialId = Convert.ToInt32(cboEditorial.SelectedValue),
+
+                            IdentificadorDigital = txtIdentificadorDigital.Text.Trim(),
+                            Formato = cboFormato.SelectedItem!.ToString()!,
+                            TamanioMB = nudTamanioMB.Value,
+                            UrlDescarga = txtUrlDescarga.Text.Trim(),
+
+                            AutoresIds = autoresIds,
+                            TemasIds = temasIds
+                        };
+
+                        _libroServicio.AgregarDigital(dto);
+                    }
                 }
+
                 else
                 {
                     MessageBox.Show("Seleccioná un tipo de libro.");
@@ -353,11 +457,14 @@ namespace Libreria.Windows
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    $"Error al guardar el libro: {ex.Message}",
+                    $"Error al guardar el libro:\n\n{ex.GetBaseException().Message}",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+
+
+
         }
         private void btnCancelar_Click(object? sender, EventArgs e)
         {
@@ -482,9 +589,56 @@ namespace Libreria.Windows
                 clbTemas.ClearSelected();
             }
 
-
-
         }
+
+
+        private void btnEliminar_Click(object? sender, EventArgs e)
+        {
+            if (dgvLibros.CurrentRow?.DataBoundItem
+                is not LibroListDto libroSeleccionado)
+            {
+                MessageBox.Show(
+                    "Seleccioná un libro para eliminar.",
+                    "Atención",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            var respuesta = MessageBox.Show(
+                $"¿Estás seguro de eliminar el libro '{libroSeleccionado.Titulo}'?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (respuesta != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                _libroServicio.Eliminar(libroSeleccionado.LibroId);
+
+                MessageBox.Show(
+                    "Libro eliminado correctamente.",
+                    "Éxito",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                CargarLibros();
+                LimpiarControles();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error al eliminar el libro: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
 
 
 
