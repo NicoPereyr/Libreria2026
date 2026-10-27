@@ -108,6 +108,7 @@ namespace Libreria.Servicios.Servicios
         {
             ValidarPrecio(dto.Precio);
             ValidarISBN(dto.ISBN);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
             // Comprobar que el ISBN no esté repetido
             if (_unitOfWork.Libros.ExisteISBN(dto.ISBN.Trim()))
             {
@@ -163,6 +164,12 @@ namespace Libreria.Servicios.Servicios
         public void AgregarDigital(LibroDigitalCreateDto dto)
         {
             ValidarPrecio(dto.Precio);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+            ValidarLibroDigital(
+                dto.IdentificadorDigital,
+                dto.Formato,
+                dto.TamanioMB,
+                dto.UrlDescarga);
             // Comprobar que el identificador digital no esté repetido
             if (_unitOfWork.Libros.ExisteIdentificadorDigital(
                 dto.IdentificadorDigital.Trim()))
@@ -221,6 +228,7 @@ namespace Libreria.Servicios.Servicios
         {
             ValidarPrecio(dto.Precio);
             ValidarISBN(dto.ISBN);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
             // Buscar el libro existente con sus relaciones
             var libro = _unitOfWork.Libros
                 .ObtenerPorIdConRelaciones(dto.LibroId);
@@ -295,6 +303,14 @@ namespace Libreria.Servicios.Servicios
         public void EditarDigital(LibroDigitalUpdateDto dto)
         {
             ValidarPrecio(dto.Precio);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+
+            ValidarLibroDigital(
+                dto.IdentificadorDigital,
+                dto.Formato,
+                dto.TamanioMB,
+                dto.UrlDescarga);
+
             // Buscar el libro existente con sus relaciones
             var libro = _unitOfWork.Libros
                 .ObtenerPorIdConRelaciones(dto.LibroId);
@@ -413,6 +429,71 @@ namespace Libreria.Servicios.Servicios
             {
                 throw new ArgumentException(
                     "El ISBN debe contener exactamente 13 dígitos numéricos.");
+            }
+        }
+        private void ValidarAutoresYTemas(
+             List<int> autoresIds,
+             List<int> temasIds)
+        {
+            if (autoresIds == null || autoresIds.Count == 0)
+            {
+                throw new ArgumentException(
+                    "Debés seleccionar al menos un autor.");
+            }
+
+            if (temasIds == null || temasIds.Count == 0)
+            {
+                throw new ArgumentException(
+                    "Debés seleccionar al menos un tema.");
+            }
+        }
+
+        private void ValidarLibroDigital(
+            string identificadorDigital,
+            string formato,
+            decimal tamanioMB,
+            string urlDescarga)
+        {
+            if (string.IsNullOrWhiteSpace(identificadorDigital))
+            {
+                throw new ArgumentException(
+                    "El identificador digital es obligatorio.");
+            }
+
+            if (identificadorDigital.Trim().Length > 50)
+            {
+                throw new ArgumentException(
+                    "El identificador digital no puede superar los 50 caracteres.");
+            }
+
+            if (string.IsNullOrWhiteSpace(formato))
+            {
+                throw new ArgumentException(
+                    "El formato del libro digital es obligatorio.");
+            }
+
+            if (formato.Trim().Length > 20)
+            {
+                throw new ArgumentException(
+                    "El formato no puede superar los 20 caracteres.");
+            }
+
+            if (tamanioMB <= 0)
+            {
+                throw new ArgumentException(
+                    "El tamaño del libro digital debe ser mayor a 0 MB.");
+            }
+
+            if (string.IsNullOrWhiteSpace(urlDescarga))
+            {
+                throw new ArgumentException(
+                    "La URL de descarga es obligatoria.");
+            }
+
+            if (urlDescarga.Trim().Length > 500)
+            {
+                throw new ArgumentException(
+                    "La URL de descarga no puede superar los 500 caracteres.");
             }
         }
 
