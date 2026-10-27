@@ -106,6 +106,8 @@ namespace Libreria.Servicios.Servicios
 
         public void AgregarFisico(LibroFisicoCreateDto dto)
         {
+            ValidarPrecio(dto.Precio);
+            ValidarISBN(dto.ISBN);
             // Comprobar que el ISBN no esté repetido
             if (_unitOfWork.Libros.ExisteISBN(dto.ISBN.Trim()))
             {
@@ -160,6 +162,7 @@ namespace Libreria.Servicios.Servicios
 
         public void AgregarDigital(LibroDigitalCreateDto dto)
         {
+            ValidarPrecio(dto.Precio);
             // Comprobar que el identificador digital no esté repetido
             if (_unitOfWork.Libros.ExisteIdentificadorDigital(
                 dto.IdentificadorDigital.Trim()))
@@ -216,6 +219,8 @@ namespace Libreria.Servicios.Servicios
 
         public void EditarFisico(LibroFisicoUpdateDto dto)
         {
+            ValidarPrecio(dto.Precio);
+            ValidarISBN(dto.ISBN);
             // Buscar el libro existente con sus relaciones
             var libro = _unitOfWork.Libros
                 .ObtenerPorIdConRelaciones(dto.LibroId);
@@ -289,6 +294,7 @@ namespace Libreria.Servicios.Servicios
 
         public void EditarDigital(LibroDigitalUpdateDto dto)
         {
+            ValidarPrecio(dto.Precio);
             // Buscar el libro existente con sus relaciones
             var libro = _unitOfWork.Libros
                 .ObtenerPorIdConRelaciones(dto.LibroId);
@@ -359,8 +365,6 @@ namespace Libreria.Servicios.Servicios
             _unitOfWork.Guardar();
         }
 
-
-
         public void Eliminar(int id)
         {
             // Buscar el libro existente
@@ -384,6 +388,36 @@ namespace Libreria.Servicios.Servicios
             _unitOfWork.Guardar();
         }
 
+
+        private void ValidarPrecio(decimal precio)
+        {
+            if (precio <= 0)
+            {
+                throw new ArgumentException(
+                    "El precio del libro debe ser mayor a cero.");
+            }
+        }
+
+
+        private void ValidarISBN(string isbn)
+        {
+            if (string.IsNullOrWhiteSpace(isbn))
+            {
+                throw new ArgumentException(
+                    "El ISBN es obligatorio.");
+            }
+
+            isbn = isbn.Trim();
+
+            if (isbn.Length != 13 || !isbn.All(c => c >= '0' && c <= '9'))
+            {
+                throw new ArgumentException(
+                    "El ISBN debe contener exactamente 13 dígitos numéricos.");
+            }
+        }
+
+
     }
+
 }
 

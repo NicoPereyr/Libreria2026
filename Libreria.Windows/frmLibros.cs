@@ -244,6 +244,17 @@ namespace Libreria.Windows
                     txtTitulo.Focus();
                     return;
                 }
+                if (nudAnio.Value > DateTime.Now.Year)
+                {
+                    MessageBox.Show(
+                        "El año de publicación no puede ser mayor al año actual.",
+                        "Validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    nudAnio.Focus();
+                    return;
+                }
                 if (nudPrecio.Value <= 0)
                 {
                     MessageBox.Show(
@@ -310,11 +321,37 @@ namespace Libreria.Windows
                     .Select(a => a.AutorId)
                     .ToList();
 
+                if (autoresIds.Count == 0)
+                {
+                    MessageBox.Show(
+                        "Debés seleccionar al menos un autor.",
+                        "Validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    clbAutores.Focus();
+                    return;
+                }
+
+
                 // Obtener los temas seleccionados
                 var temasIds = clbTemas.CheckedItems
                     .Cast<TemaItem>()
                     .Select(t => t.TemaId)
                     .ToList();
+
+                if (temasIds.Count == 0)
+                {
+                    MessageBox.Show(
+                        "Debés seleccionar al menos un tema.",
+                        "Validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    clbTemas.Focus();
+                    return;
+                }
+
 
 
                 string tipoLibro = cboTipoLibro.SelectedItem?.ToString() ?? "";
@@ -380,6 +417,17 @@ namespace Libreria.Windows
                     if (cboFormato.SelectedIndex == -1)
                     {
                         MessageBox.Show("Seleccioná un formato.");
+                        return;
+                    }
+                    if (nudTamanioMB.Value <= 0)
+                    {
+                        MessageBox.Show(
+                            "El tamaño del libro digital debe ser mayor a 0 MB.",
+                            "Validación",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        nudTamanioMB.Focus();
                         return;
                     }
 

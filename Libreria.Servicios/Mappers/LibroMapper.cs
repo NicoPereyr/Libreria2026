@@ -91,9 +91,16 @@ namespace Libreria.Servicios.Mappers
 
                 Editorial = libro.Editorial?.Nombre ?? "",
 
+
                 AnioPublicacion = libro.AnioPublicacion,
                 Precio = libro.Precio,
+
+                Stock = libro is LibroFisico libroFisico
+                      ? libroFisico.Stock
+                      : null,
+
                 Activo = libro.Activo,
+
 
                 Autores = string.Join(", ",
                     libro.Autores.Select(a =>

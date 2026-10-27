@@ -102,6 +102,7 @@
             // txtTitulo
             // 
             txtTitulo.Location = new Point(58, 72);
+            txtTitulo.MaxLength = 150;
             txtTitulo.Name = "txtTitulo";
             txtTitulo.Size = new Size(300, 23);
             txtTitulo.TabIndex = 3;
@@ -118,8 +119,10 @@
             // txtDescripcion
             // 
             txtDescripcion.Location = new Point(89, 108);
+            txtDescripcion.MaxLength = 500;
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
+            txtDescripcion.ScrollBars = ScrollBars.Vertical;
             txtDescripcion.Size = new Size(300, 75);
             txtDescripcion.TabIndex = 5;
             // 
@@ -202,6 +205,7 @@
             // txtISBN
             // 
             txtISBN.Location = new Point(52, 346);
+            txtISBN.MaxLength = 13;
             txtISBN.Name = "txtISBN";
             txtISBN.Size = new Size(200, 23);
             txtISBN.TabIndex = 14;
@@ -235,6 +239,7 @@
             // txtIdentificadorDigital
             // 
             txtIdentificadorDigital.Location = new Point(130, 427);
+            txtIdentificadorDigital.MaxLength = 50;
             txtIdentificadorDigital.Name = "txtIdentificadorDigital";
             txtIdentificadorDigital.Size = new Size(200, 23);
             txtIdentificadorDigital.TabIndex = 18;
@@ -288,6 +293,7 @@
             // txtUrlDescarga
             // 
             txtUrlDescarga.Location = new Point(111, 529);
+            txtUrlDescarga.MaxLength = 500;
             txtUrlDescarga.Name = "txtUrlDescarga";
             txtUrlDescarga.Size = new Size(300, 23);
             txtUrlDescarga.TabIndex = 24;

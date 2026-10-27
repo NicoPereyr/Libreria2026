@@ -15,6 +15,8 @@ namespace Libreria.DTOs.Libros
 
         public decimal Precio { get; set; }
 
+        public int? Stock { get; set; }
+
         public bool Activo { get; set; }
 
         public string Autores { get; set; } = string.Empty;
