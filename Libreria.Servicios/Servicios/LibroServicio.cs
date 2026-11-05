@@ -112,6 +112,8 @@ namespace Libreria.Servicios.Servicios
                 dto.AnioPublicacion);
             ValidarPrecio(dto.Precio);
             ValidarISBN(dto.ISBN);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+            ValidarStock(dto.Stock);
             // Comprobar que el ISBN no esté repetido
             if (_unitOfWork.Libros.ExisteISBN(dto.ISBN.Trim()))
             {
@@ -239,6 +241,8 @@ namespace Libreria.Servicios.Servicios
                 dto.AnioPublicacion);
             ValidarPrecio(dto.Precio);
             ValidarISBN(dto.ISBN);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+            ValidarStock(dto.Stock);
             // Buscar el libro existente con sus relaciones
             var libro = _unitOfWork.Libros
                 .ObtenerPorIdConRelaciones(dto.LibroId);
@@ -317,6 +321,12 @@ namespace Libreria.Servicios.Servicios
                 dto.Descripcion,
                 dto.AnioPublicacion);
             ValidarPrecio(dto.Precio);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+            ValidarLibroDigital(
+                dto.IdentificadorDigital,
+                dto.Formato,
+                dto.TamanioMB,
+                dto.UrlDescarga);
             // Buscar el libro existente con sus relaciones
             var libro = _unitOfWork.Libros
                 .ObtenerPorIdConRelaciones(dto.LibroId);
@@ -502,6 +512,60 @@ namespace Libreria.Servicios.Servicios
             {
                 throw new ArgumentException(
                     "El stock no puede ser negativo.");
+            }
+        }
+
+        private void ValidarDatosGenerales(
+            string titulo,
+            string descripcion,
+            int anioPublicacion)
+        {
+            if (string.IsNullOrWhiteSpace(titulo))
+            {
+                throw new ArgumentException(
+                    "El título del libro es obligatorio.");
+            }
+
+            if (titulo.Trim().Length > 150)
+            {
+                throw new ArgumentException(
+                    "El título no puede superar los 150 caracteres.");
+            }
+
+            if (string.IsNullOrWhiteSpace(descripcion))
+            {
+                throw new ArgumentException(
+                    "La descripción del libro es obligatoria.");
+            }
+
+            if (descripcion.Trim().Length > 500)
+            {
+                throw new ArgumentException(
+                    "La descripción no puede superar los 500 caracteres.");
+            }
+
+            if (anioPublicacion < 1 ||
+                anioPublicacion > DateTime.Now.Year)
+            {
+                throw new ArgumentException(
+                    "El año de publicación debe estar entre 1 y el año actual.");
+            }
+        }
+
+        private void ValidarAutoresYTemas(
+            List<int> autoresIds,
+            List<int> temasIds)
+        {
+            if (autoresIds == null || autoresIds.Count == 0)
+            {
+                throw new ArgumentException(
+                    "Debés seleccionar al menos un autor.");
+            }
+
+            if (temasIds == null || temasIds.Count == 0)
+            {
+                throw new ArgumentException(
+                    "Debés seleccionar al menos un tema.");
             }
         }
 
