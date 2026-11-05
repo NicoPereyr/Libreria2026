@@ -106,8 +106,14 @@ namespace Libreria.Servicios.Servicios
 
         public void AgregarFisico(LibroFisicoCreateDto dto)
         {
+            ValidarDatosGenerales(
+                dto.Titulo,
+                dto.Descripcion,
+                dto.AnioPublicacion);
             ValidarPrecio(dto.Precio);
             ValidarISBN(dto.ISBN);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+            ValidarStock(dto.Stock);
             // Comprobar que el ISBN no esté repetido
             if (_unitOfWork.Libros.ExisteISBN(dto.ISBN.Trim()))
             {
@@ -162,7 +168,17 @@ namespace Libreria.Servicios.Servicios
 
         public void AgregarDigital(LibroDigitalCreateDto dto)
         {
+            ValidarDatosGenerales(
+                dto.Titulo,
+                dto.Descripcion,
+                dto.AnioPublicacion);
             ValidarPrecio(dto.Precio);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+            ValidarLibroDigital(
+                dto.IdentificadorDigital,
+                dto.Formato,
+                dto.TamanioMB,
+                dto.UrlDescarga);
             // Comprobar que el identificador digital no esté repetido
             if (_unitOfWork.Libros.ExisteIdentificadorDigital(
                 dto.IdentificadorDigital.Trim()))
@@ -219,8 +235,14 @@ namespace Libreria.Servicios.Servicios
 
         public void EditarFisico(LibroFisicoUpdateDto dto)
         {
+            ValidarDatosGenerales(
+                dto.Titulo,
+                dto.Descripcion,
+                dto.AnioPublicacion);
             ValidarPrecio(dto.Precio);
             ValidarISBN(dto.ISBN);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+            ValidarStock(dto.Stock);
             // Buscar el libro existente con sus relaciones
             var libro = _unitOfWork.Libros
                 .ObtenerPorIdConRelaciones(dto.LibroId);
@@ -294,7 +316,17 @@ namespace Libreria.Servicios.Servicios
 
         public void EditarDigital(LibroDigitalUpdateDto dto)
         {
+            ValidarDatosGenerales(
+                dto.Titulo,
+                dto.Descripcion,
+                dto.AnioPublicacion);
             ValidarPrecio(dto.Precio);
+            ValidarAutoresYTemas(dto.AutoresIds, dto.TemasIds);
+            ValidarLibroDigital(
+                dto.IdentificadorDigital,
+                dto.Formato,
+                dto.TamanioMB,
+                dto.UrlDescarga);
             // Buscar el libro existente con sus relaciones
             var libro = _unitOfWork.Libros
                 .ObtenerPorIdConRelaciones(dto.LibroId);
@@ -365,6 +397,7 @@ namespace Libreria.Servicios.Servicios
             _unitOfWork.Guardar();
         }
 
+
         public void Eliminar(int id)
         {
             // Buscar el libro existente
@@ -374,15 +407,19 @@ namespace Libreria.Servicios.Servicios
             // Comprobar que exista
             if (libro == null)
             {
-                throw new Exception("El libro seleccionado no existe.");
+                throw new Exception(
+                    "El libro seleccionado no existe.");
             }
 
-            // Eliminar las relaciones con autores y temas
-            libro.Autores.Clear();
-            libro.Temas.Clear();
+            // Verificar que no esté dado de baja
+            if (!libro.Activo)
+            {
+                throw new Exception(
+                    "El libro ya se encuentra inactivo.");
+            }
 
-            // Eliminar el libro
-            _unitOfWork.Libros.Eliminar(libro);
+            // Baja lógica
+            libro.Activo = false;
 
             // Guardar los cambios
             _unitOfWork.Guardar();
@@ -415,6 +452,127 @@ namespace Libreria.Servicios.Servicios
                     "El ISBN debe contener exactamente 13 dígitos numéricos.");
             }
         }
+
+
+        private void ValidarDatosGenerales(
+            string titulo,
+            string descripcion,
+            int anioPublicacion)
+        {
+            // Validar título
+            if (string.IsNullOrWhiteSpace(titulo))
+            {
+                throw new ArgumentException(
+                    "El título del libro es obligatorio.");
+            }
+
+            if (titulo.Trim().Length > 150)
+            {
+                throw new ArgumentException(
+                    "El título no puede superar los 150 caracteres.");
+            }
+
+            // Validar descripción
+            if (string.IsNullOrWhiteSpace(descripcion))
+            {
+                throw new ArgumentException(
+                    "La descripción del libro es obligatoria.");
+            }
+
+            if (descripcion.Trim().Length > 500)
+            {
+                throw new ArgumentException(
+                    "La descripción no puede superar los 500 caracteres.");
+            }
+
+            // Validar año de publicación
+            if (anioPublicacion < 1 ||
+                anioPublicacion > DateTime.Now.Year)
+            {
+                throw new ArgumentException(
+                    "El año de publicación debe estar entre 1 y el año actual.");
+            }
+        }
+
+        private void ValidarAutoresYTemas(
+            List<int> autoresIds,
+            List<int> temasIds)
+        {
+            if (autoresIds == null || autoresIds.Count == 0)
+            {
+                throw new ArgumentException(
+                    "Debés seleccionar al menos un autor.");
+            }
+
+            if (temasIds == null || temasIds.Count == 0)
+            {
+                throw new ArgumentException(
+                    "Debés seleccionar al menos un tema.");
+            }
+        }
+
+        private void ValidarLibroDigital(
+            string identificadorDigital,
+            string formato,
+            decimal tamanioMB,
+            string urlDescarga)
+        {
+            // Validar identificador digital
+            if (string.IsNullOrWhiteSpace(identificadorDigital))
+            {
+                throw new ArgumentException(
+                    "El identificador digital es obligatorio.");
+            }
+
+            if (identificadorDigital.Trim().Length > 50)
+            {
+                throw new ArgumentException(
+                    "El identificador digital no puede superar los 50 caracteres.");
+            }
+
+            // Validar formato
+            if (string.IsNullOrWhiteSpace(formato))
+            {
+                throw new ArgumentException(
+                    "El formato del libro digital es obligatorio.");
+            }
+
+            if (formato.Trim().Length > 20)
+            {
+                throw new ArgumentException(
+                    "El formato no puede superar los 20 caracteres.");
+            }
+
+            // Validar tamaño
+            if (tamanioMB <= 0)
+            {
+                throw new ArgumentException(
+                    "El tamaño del archivo debe ser mayor a 0 MB.");
+            }
+
+            // Validar URL
+            if (string.IsNullOrWhiteSpace(urlDescarga))
+            {
+                throw new ArgumentException(
+                    "La URL de descarga es obligatoria.");
+            }
+
+            if (urlDescarga.Trim().Length > 500)
+            {
+                throw new ArgumentException(
+                    "La URL no puede superar los 500 caracteres.");
+            }
+        }
+
+        private void ValidarStock(int stock)
+        {
+            if (stock < 0)
+            {
+                throw new ArgumentException(
+                    "El stock no puede ser negativo.");
+            }
+        }
+
 
 
     }

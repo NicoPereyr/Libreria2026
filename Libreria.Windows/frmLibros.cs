@@ -224,6 +224,7 @@ namespace Libreria.Windows
             dgvLibros.ClearSelection();
 
             txtTitulo.Focus();
+            cboTipoLibro.Enabled = true;
         }
 
         private void btnNuevo_Click(object? sender, EventArgs e)
@@ -296,10 +297,8 @@ namespace Libreria.Windows
                         txtISBN.Focus();
                         return;
                     }
-
-                    if (cboTipoLibro.SelectedItem?.ToString() == "Físico")
-                    {
-                        if (nudStock.Value < 0)
+                 
+                    if (nudStock.Value < 0)
                         {
                             MessageBox.Show(
                                 "El stock no puede ser negativo.",
@@ -310,7 +309,7 @@ namespace Libreria.Windows
                             nudStock.Focus();
                             return;
                         }
-                    }
+                    
 
                 }
 
@@ -546,6 +545,7 @@ namespace Libreria.Windows
                 if (libro == null)
                 {
                     MessageBox.Show("No se encontró el libro físico.");
+                    _libroIdSeleccionado = null;
                     return;
                 }
 
@@ -636,7 +636,7 @@ namespace Libreria.Windows
                 clbAutores.ClearSelected();
                 clbTemas.ClearSelected();
             }
-
+            cboTipoLibro.Enabled = false;
         }
 
 
