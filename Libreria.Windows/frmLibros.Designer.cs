@@ -63,6 +63,9 @@
             btnEliminar = new Button();
             btnCancelar = new Button();
             dgvLibros = new DataGridView();
+            textBox1 = new TextBox();
+            listBox1 = new ListBox();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)nudAnio).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudPrecio).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
@@ -302,7 +305,7 @@
             // 
             clbAutores.CheckOnClick = true;
             clbAutores.FormattingEnabled = true;
-            clbAutores.Location = new Point(477, 75);
+            clbAutores.Location = new Point(790, 75);
             clbAutores.Name = "clbAutores";
             clbAutores.Size = new Size(250, 148);
             clbAutores.TabIndex = 25;
@@ -310,7 +313,7 @@
             // lblAutores
             // 
             lblAutores.AutoSize = true;
-            lblAutores.Location = new Point(477, 48);
+            lblAutores.Location = new Point(790, 48);
             lblAutores.Name = "lblAutores";
             lblAutores.Size = new Size(51, 15);
             lblAutores.TabIndex = 26;
@@ -319,7 +322,7 @@
             // lblTemas
             // 
             lblTemas.AutoSize = true;
-            lblTemas.Location = new Point(477, 269);
+            lblTemas.Location = new Point(475, 279);
             lblTemas.Name = "lblTemas";
             lblTemas.Size = new Size(44, 15);
             lblTemas.TabIndex = 27;
@@ -394,11 +397,36 @@
             dgvLibros.Size = new Size(1040, 200);
             dgvLibros.TabIndex = 34;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(475, 15);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 35;
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.Location = new Point(477, 44);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(120, 94);
+            listBox1.TabIndex = 36;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Location = new Point(477, 144);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(200, 100);
+            flowLayoutPanel1.TabIndex = 37;
+            // 
             // frmLibros
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1084, 861);
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(listBox1);
+            Controls.Add(textBox1);
             Controls.Add(dgvLibros);
             Controls.Add(btnCancelar);
             Controls.Add(btnEliminar);
@@ -484,5 +512,8 @@
         private Button btnEliminar;
         private Button btnCancelar;
         private DataGridView dgvLibros;
+        private TextBox textBox1;
+        private ListBox listBox1;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
