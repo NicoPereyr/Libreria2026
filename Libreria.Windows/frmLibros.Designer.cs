@@ -53,19 +53,18 @@
             nudTamanioMB = new NumericUpDown();
             lblUrlDescarga = new Label();
             txtUrlDescarga = new TextBox();
-            clbAutores = new CheckedListBox();
-            lblAutores = new Label();
-            lblTemas = new Label();
-            clbTemas = new CheckedListBox();
             btnNuevo = new Button();
             btnGuardar = new Button();
             btnEditar = new Button();
             btnEliminar = new Button();
             btnCancelar = new Button();
             dgvLibros = new DataGridView();
-            textBox1 = new TextBox();
-            listBox1 = new ListBox();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            txtBuscarAutor = new TextBox();
+            lstResultadosAutores = new ListBox();
+            flpAutoresSeleccionados = new FlowLayoutPanel();
+            flpTemasSeleccionados = new FlowLayoutPanel();
+            lstResultadosTemas = new ListBox();
+            txtBuscarTema = new TextBox();
             ((System.ComponentModel.ISupportInitialize)nudAnio).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudPrecio).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
@@ -301,42 +300,6 @@
             txtUrlDescarga.Size = new Size(300, 23);
             txtUrlDescarga.TabIndex = 24;
             // 
-            // clbAutores
-            // 
-            clbAutores.CheckOnClick = true;
-            clbAutores.FormattingEnabled = true;
-            clbAutores.Location = new Point(790, 75);
-            clbAutores.Name = "clbAutores";
-            clbAutores.Size = new Size(250, 148);
-            clbAutores.TabIndex = 25;
-            // 
-            // lblAutores
-            // 
-            lblAutores.AutoSize = true;
-            lblAutores.Location = new Point(790, 48);
-            lblAutores.Name = "lblAutores";
-            lblAutores.Size = new Size(51, 15);
-            lblAutores.TabIndex = 26;
-            lblAutores.Text = "Autores:";
-            // 
-            // lblTemas
-            // 
-            lblTemas.AutoSize = true;
-            lblTemas.Location = new Point(475, 279);
-            lblTemas.Name = "lblTemas";
-            lblTemas.Size = new Size(44, 15);
-            lblTemas.TabIndex = 27;
-            lblTemas.Text = "Temas:";
-            // 
-            // clbTemas
-            // 
-            clbTemas.CheckOnClick = true;
-            clbTemas.FormattingEnabled = true;
-            clbTemas.Location = new Point(477, 297);
-            clbTemas.Name = "clbTemas";
-            clbTemas.Size = new Size(250, 148);
-            clbTemas.TabIndex = 28;
-            // 
             // btnNuevo
             // 
             btnNuevo.Location = new Point(13, 578);
@@ -397,46 +360,76 @@
             dgvLibros.Size = new Size(1040, 200);
             dgvLibros.TabIndex = 34;
             // 
-            // textBox1
+            // txtBuscarAutor
             // 
-            textBox1.Location = new Point(475, 15);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 35;
+            txtBuscarAutor.Location = new Point(475, 15);
+            txtBuscarAutor.Name = "txtBuscarAutor";
+            txtBuscarAutor.PlaceholderText = "Buscar autor...";
+            txtBuscarAutor.Size = new Size(250, 23);
+            txtBuscarAutor.TabIndex = 35;
             // 
-            // listBox1
+            // lstResultadosAutores
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(477, 44);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(120, 94);
-            listBox1.TabIndex = 36;
+            lstResultadosAutores.FormattingEnabled = true;
+            lstResultadosAutores.Location = new Point(733, 15);
+            lstResultadosAutores.Name = "lstResultadosAutores";
+            lstResultadosAutores.Size = new Size(250, 79);
+            lstResultadosAutores.TabIndex = 36;
+            lstResultadosAutores.Visible = false;
             // 
-            // flowLayoutPanel1
+            // flpAutoresSeleccionados
             // 
-            flowLayoutPanel1.Location = new Point(477, 144);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(200, 100);
-            flowLayoutPanel1.TabIndex = 37;
+            flpAutoresSeleccionados.AutoScroll = true;
+            flpAutoresSeleccionados.BorderStyle = BorderStyle.FixedSingle;
+            flpAutoresSeleccionados.Location = new Point(477, 44);
+            flpAutoresSeleccionados.Name = "flpAutoresSeleccionados";
+            flpAutoresSeleccionados.Size = new Size(250, 70);
+            flpAutoresSeleccionados.TabIndex = 37;
+            // 
+            // flpTemasSeleccionados
+            // 
+            flpTemasSeleccionados.AutoScroll = true;
+            flpTemasSeleccionados.BorderStyle = BorderStyle.FixedSingle;
+            flpTemasSeleccionados.Location = new Point(477, 167);
+            flpTemasSeleccionados.Name = "flpTemasSeleccionados";
+            flpTemasSeleccionados.Size = new Size(250, 70);
+            flpTemasSeleccionados.TabIndex = 40;
+            // 
+            // lstResultadosTemas
+            // 
+            lstResultadosTemas.FormattingEnabled = true;
+            lstResultadosTemas.Location = new Point(731, 138);
+            lstResultadosTemas.Name = "lstResultadosTemas";
+            lstResultadosTemas.Size = new Size(250, 79);
+            lstResultadosTemas.TabIndex = 39;
+            lstResultadosTemas.Visible = false;
+            // 
+            // txtBuscarTema
+            // 
+            txtBuscarTema.Location = new Point(475, 138);
+            txtBuscarTema.Name = "txtBuscarTema";
+            txtBuscarTema.PlaceholderText = "Buscar tema...";
+            txtBuscarTema.Size = new Size(250, 23);
+            txtBuscarTema.TabIndex = 38;
             // 
             // frmLibros
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             ClientSize = new Size(1084, 861);
-            Controls.Add(flowLayoutPanel1);
-            Controls.Add(listBox1);
-            Controls.Add(textBox1);
+            Controls.Add(flpTemasSeleccionados);
+            Controls.Add(lstResultadosTemas);
+            Controls.Add(txtBuscarTema);
+            Controls.Add(flpAutoresSeleccionados);
+            Controls.Add(lstResultadosAutores);
+            Controls.Add(txtBuscarAutor);
             Controls.Add(dgvLibros);
             Controls.Add(btnCancelar);
             Controls.Add(btnEliminar);
             Controls.Add(btnEditar);
             Controls.Add(btnGuardar);
             Controls.Add(btnNuevo);
-            Controls.Add(clbTemas);
-            Controls.Add(lblTemas);
-            Controls.Add(lblAutores);
-            Controls.Add(clbAutores);
             Controls.Add(txtUrlDescarga);
             Controls.Add(lblUrlDescarga);
             Controls.Add(nudTamanioMB);
@@ -466,6 +459,7 @@
             Name = "frmLibros";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Administración de Libros";
+            WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)nudAnio).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudPrecio).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudStock).EndInit();
@@ -502,18 +496,17 @@
         private NumericUpDown nudTamanioMB;
         private Label lblUrlDescarga;
         private TextBox txtUrlDescarga;
-        private CheckedListBox clbAutores;
-        private Label lblAutores;
-        private Label lblTemas;
-        private CheckedListBox clbTemas;
         private Button btnNuevo;
         private Button btnGuardar;
         private Button btnEditar;
         private Button btnEliminar;
         private Button btnCancelar;
         private DataGridView dgvLibros;
-        private TextBox textBox1;
-        private ListBox listBox1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private TextBox txtBuscarAutor;
+        private ListBox lstResultadosAutores;
+        private FlowLayoutPanel flpAutoresSeleccionados;
+        private FlowLayoutPanel flpTemasSeleccionados;
+        private ListBox lstResultadosTemas;
+        private TextBox txtBuscarTema;
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Libreria.DTOs.Libros;
+﻿using Libreria.DTOs.Libros;
 
 using Libreria.Servicios.Interfaces;
 
@@ -13,6 +11,11 @@ namespace Libreria.Windows
         private readonly IAutorServicio _autorServicio;
         private readonly ITemaServicio _temaServicio;
         private int? _libroIdSeleccionado = null;
+        private readonly List<AutorItem> _autoresDisponibles = new();
+        private readonly List<AutorItem> _autoresSeleccionados = new();
+        private readonly List<TemaItem> _temasDisponibles = new();
+        private readonly List<TemaItem> _temasSeleccionados = new();
+
 
         public frmLibros(
             ILibroServicio libroServicio,
@@ -34,6 +37,10 @@ namespace Libreria.Windows
             btnCancelar.Click += btnCancelar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
+            txtBuscarAutor.TextChanged += txtBuscarAutor_TextChanged;
+            lstResultadosAutores.Click += lstResultadosAutores_Click;
+            txtBuscarTema.TextChanged += txtBuscarTema_TextChanged;
+            lstResultadosTemas.Click += lstResultadosTemas_Click;
         }
 
         private void frmLibros_Load(object? sender, EventArgs e)
@@ -91,22 +98,24 @@ namespace Libreria.Windows
         }
 
 
+
         private void CargarAutores()
         {
             try
             {
                 var autores = _autorServicio.ObtenerTodos();
 
-                clbAutores.Items.Clear();
+                _autoresDisponibles.Clear();
 
                 foreach (var autor in autores)
                 {
-                    clbAutores.Items.Add(
-                        new AutorItem
-                        {
-                            AutorId = autor.AutorId,
-                            NombreCompleto = $"{autor.Nombre} {autor.Apellido}"
-                        });
+                    var item = new AutorItem
+                    {
+                        AutorId = autor.AutorId,
+                        NombreCompleto = $"{autor.Nombre} {autor.Apellido}"
+                    };
+
+                    _autoresDisponibles.Add(item);
                 }
             }
             catch (Exception ex)
@@ -119,6 +128,104 @@ namespace Libreria.Windows
             }
         }
 
+        private void txtBuscarAutor_TextChanged(object? sender, EventArgs e)
+        {
+            string texto = txtBuscarAutor.Text.Trim();
+
+            lstResultadosAutores.Items.Clear();
+
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                lstResultadosAutores.Visible = false;
+                return;
+            }
+
+            var resultados = _autoresDisponibles
+                .Where(a => a.NombreCompleto.Contains(
+                    texto, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            foreach (var autor in resultados)
+            {
+                lstResultadosAutores.Items.Add(autor);
+            }
+
+            lstResultadosAutores.Visible = resultados.Count > 0;
+        }
+
+        private void lstResultadosAutores_Click(object? sender, EventArgs e)
+        {
+            if (lstResultadosAutores.SelectedItem is not AutorItem autor)
+            {
+                return;
+            }
+
+            // Evitar agregar el mismo autor dos veces
+            if (!_autoresSeleccionados.Any(a => a.AutorId == autor.AutorId))
+            {
+                _autoresSeleccionados.Add(autor);
+                MostrarAutoresSeleccionados();
+            }
+
+            // Limpiar el buscador
+            txtBuscarAutor.Clear();
+            lstResultadosAutores.Visible = false;
+            txtBuscarAutor.Focus();
+        }
+
+        private void MostrarAutoresSeleccionados()
+        {
+            flpAutoresSeleccionados.Controls.Clear();
+
+            foreach (var autor in _autoresSeleccionados)
+            {
+                // Contenedor de la etiqueta
+                var panel = new FlowLayoutPanel
+                {
+                    AutoSize = true,
+                    WrapContents = false,
+                    FlowDirection = FlowDirection.LeftToRight,
+                    BackColor = Color.FromArgb(225, 235, 245),
+                    Margin = new Padding(4),
+                    Padding = new Padding(5, 2, 5, 2)
+                };
+
+                // Nombre del autor
+                var lblAutor = new Label
+                {
+                    Text = autor.NombreCompleto,
+                    AutoSize = true,
+                    Margin = new Padding(3, 5, 3, 3)
+                };
+
+                // Botón para quitar el autor
+                var btnQuitar = new Button
+                {
+                    Text = "×",
+                    Size = new Size(24, 24),
+                    FlatStyle = FlatStyle.Flat,
+                    Cursor = Cursors.Hand,
+                    Margin = new Padding(3, 0, 0, 0)
+                };
+
+                btnQuitar.FlatAppearance.BorderSize = 0;
+
+                int autorId = autor.AutorId;
+
+                btnQuitar.Click += (s, e) =>
+                {
+                    _autoresSeleccionados.RemoveAll(
+                        a => a.AutorId == autorId);
+
+                    MostrarAutoresSeleccionados();
+                };
+
+                panel.Controls.Add(lblAutor);
+                panel.Controls.Add(btnQuitar);
+
+                flpAutoresSeleccionados.Controls.Add(panel);
+            }
+        }
 
         private void CargarTemas()
         {
@@ -126,15 +233,17 @@ namespace Libreria.Windows
             {
                 var temas = _temaServicio.ObtenerTodos();
 
-                clbTemas.Items.Clear();
+                _temasDisponibles.Clear();
 
                 foreach (var tema in temas)
                 {
-                    clbTemas.Items.Add(new TemaItem
+                    var item = new TemaItem
                     {
                         TemaId = tema.TemaId,
                         Nombre = tema.Nombre
-                    });
+                    };
+
+                    _temasDisponibles.Add(item);
                 }
             }
             catch (Exception ex)
@@ -146,6 +255,106 @@ namespace Libreria.Windows
                     MessageBoxIcon.Error);
             }
         }
+
+        private void txtBuscarTema_TextChanged(object? sender, EventArgs e)
+        {
+            string texto = txtBuscarTema.Text.Trim();
+
+            lstResultadosTemas.Items.Clear();
+
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                lstResultadosTemas.Visible = false;
+                return;
+            }
+
+            var resultados = _temasDisponibles
+                .Where(t => t.Nombre.Contains(
+                    texto, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            foreach (var tema in resultados)
+            {
+                lstResultadosTemas.Items.Add(tema);
+            }
+
+            lstResultadosTemas.Visible = resultados.Count > 0;
+        }
+
+        private void lstResultadosTemas_Click(object? sender, EventArgs e)
+        {
+            if (lstResultadosTemas.SelectedItem is not TemaItem tema)
+            {
+                return;
+            }
+
+            // Evitar agregar el mismo tema dos veces
+            if (!_temasSeleccionados.Any(t => t.TemaId == tema.TemaId))
+            {
+                _temasSeleccionados.Add(tema);
+                MostrarTemasSeleccionados();
+            }
+
+            // Limpiar el buscador
+            txtBuscarTema.Clear();
+            lstResultadosTemas.Visible = false;
+            txtBuscarTema.Focus();
+        }
+
+        private void MostrarTemasSeleccionados()
+        {
+            flpTemasSeleccionados.Controls.Clear();
+
+            foreach (var tema in _temasSeleccionados)
+            {
+                // Contenedor de la etiqueta
+                var panel = new FlowLayoutPanel
+                {
+                    AutoSize = true,
+                    WrapContents = false,
+                    FlowDirection = FlowDirection.LeftToRight,
+                    BackColor = Color.FromArgb(225, 235, 245),
+                    Margin = new Padding(4),
+                    Padding = new Padding(5, 2, 5, 2)
+                };
+
+                // Nombre del tema
+                var lblTema = new Label
+                {
+                    Text = tema.Nombre,
+                    AutoSize = true,
+                    Margin = new Padding(3, 5, 3, 3)
+                };
+
+                // Botón para quitar el tema
+                var btnQuitar = new Button
+                {
+                    Text = "×",
+                    Size = new Size(24, 24),
+                    FlatStyle = FlatStyle.Flat,
+                    Cursor = Cursors.Hand,
+                    Margin = new Padding(3, 0, 0, 0)
+                };
+
+                btnQuitar.FlatAppearance.BorderSize = 0;
+
+                int temaId = tema.TemaId;
+
+                btnQuitar.Click += (s, e) =>
+                {
+                    _temasSeleccionados.RemoveAll(
+                        t => t.TemaId == temaId);
+
+                    MostrarTemasSeleccionados();
+                };
+
+                panel.Controls.Add(lblTema);
+                panel.Controls.Add(btnQuitar);
+
+                flpTemasSeleccionados.Controls.Add(panel);
+            }
+        }
+
 
 
         private void cboTipoLibro_SelectedIndexChanged(object? sender, EventArgs e)
@@ -201,20 +410,32 @@ namespace Libreria.Windows
             nudTamanioMB.Value = 0;
             txtUrlDescarga.Clear();
 
-            // Desmarcar autores
-            for (int i = 0; i < clbAutores.Items.Count; i++)
-            {
-                clbAutores.SetItemChecked(i, false);
-            }
 
-            // Desmarcar temas
-            for (int i = 0; i < clbTemas.Items.Count; i++)
-            {
-                clbTemas.SetItemChecked(i, false);
-            }
-            // Quitar la selección visual azul
-            clbAutores.ClearSelected();
-            clbTemas.ClearSelected();
+            // Limpiar los autores del nuevo selector
+            _autoresSeleccionados.Clear();
+
+            // Eliminar las etiquetas visuales
+            MostrarAutoresSeleccionados();
+
+            // Limpiar el buscador
+            txtBuscarAutor.Clear();
+
+            // Ocultar los resultados
+            lstResultadosAutores.Visible = false;
+
+
+
+            // Limpiar los temas seleccionados
+            _temasSeleccionados.Clear();
+
+            // Eliminar las etiquetas visuales
+            MostrarTemasSeleccionados();
+
+            // Limpiar el buscador de temas
+            txtBuscarTema.Clear();
+
+            // Ocultar los resultados de búsqueda
+            lstResultadosTemas.Visible = false;
 
             // Seleccionar libro físico
             cboTipoLibro.SelectedIndex = 0;
@@ -297,28 +518,29 @@ namespace Libreria.Windows
                         txtISBN.Focus();
                         return;
                     }
-                 
-                    if (nudStock.Value < 0)
-                        {
-                            MessageBox.Show(
-                                "El stock no puede ser negativo.",
-                                "Validación",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
 
-                            nudStock.Focus();
-                            return;
-                        }
-                    
+                    if (nudStock.Value < 0)
+                    {
+                        MessageBox.Show(
+                            "El stock no puede ser negativo.",
+                            "Validación",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        nudStock.Focus();
+                        return;
+                    }
+
 
                 }
 
 
-                // Obtener los autores seleccionados
-                var autoresIds = clbAutores.CheckedItems
-                    .Cast<AutorItem>()
+
+                // Obtener los autores del nuevo selector
+                var autoresIds = _autoresSeleccionados
                     .Select(a => a.AutorId)
                     .ToList();
+
 
                 if (autoresIds.Count == 0)
                 {
@@ -328,16 +550,18 @@ namespace Libreria.Windows
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
 
-                    clbAutores.Focus();
+                    txtBuscarAutor.Focus();
                     return;
                 }
 
 
                 // Obtener los temas seleccionados
-                var temasIds = clbTemas.CheckedItems
-                    .Cast<TemaItem>()
+
+                // Obtener los temas del nuevo selector
+                var temasIds = _temasSeleccionados
                     .Select(t => t.TemaId)
                     .ToList();
+
 
                 if (temasIds.Count == 0)
                 {
@@ -347,7 +571,7 @@ namespace Libreria.Windows
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
 
-                    clbTemas.Focus();
+                    txtBuscarTema.Focus();
                     return;
                 }
 
@@ -562,28 +786,47 @@ namespace Libreria.Windows
                 txtISBN.Text = libro.ISBN;
                 nudStock.Value = libro.Stock;
 
-                // Marcar autores
-                for (int i = 0; i < clbAutores.Items.Count; i++)
+
+                // Cargar autores del libro en el nuevo selector
+                _autoresSeleccionados.Clear();
+
+                foreach (var autorId in libro.AutoresIds)
                 {
-                    if (clbAutores.Items[i] is AutorItem autor)
+                    var autor = _autoresDisponibles
+                        .FirstOrDefault(a => a.AutorId == autorId);
+
+                    if (autor != null)
                     {
-                        clbAutores.SetItemChecked(
-                            i, libro.AutoresIds.Contains(autor.AutorId));
+                        _autoresSeleccionados.Add(autor);
                     }
                 }
+
+                MostrarAutoresSeleccionados();
+
+                txtBuscarAutor.Clear();
+                lstResultadosAutores.Visible = false;
+
 
                 // Marcar temas
-                for (int i = 0; i < clbTemas.Items.Count; i++)
+
+                // Cargar los temas del libro en el nuevo selector
+                _temasSeleccionados.Clear();
+
+                foreach (var temaId in libro.TemasIds)
                 {
-                    if (clbTemas.Items[i] is TemaItem tema)
+                    var tema = _temasDisponibles
+                        .FirstOrDefault(t => t.TemaId == temaId);
+
+                    if (tema != null)
                     {
-                        clbTemas.SetItemChecked(
-                            i, libro.TemasIds.Contains(tema.TemaId));
+                        _temasSeleccionados.Add(tema);
                     }
                 }
 
-                clbAutores.ClearSelected();
-                clbTemas.ClearSelected();
+                MostrarTemasSeleccionados();
+
+                txtBuscarTema.Clear();
+                lstResultadosTemas.Visible = false;
             }
 
             else if (libroSeleccionado.TipoLibro == "Digital")
@@ -613,28 +856,47 @@ namespace Libreria.Windows
                 nudTamanioMB.Value = libro.TamanioMB;
                 txtUrlDescarga.Text = libro.UrlDescarga;
 
-                // Marcar autores
-                for (int i = 0; i < clbAutores.Items.Count; i++)
+
+                // Cargar autores del libro en el nuevo selector
+                _autoresSeleccionados.Clear();
+
+                foreach (var autorId in libro.AutoresIds)
                 {
-                    if (clbAutores.Items[i] is AutorItem autor)
+                    var autor = _autoresDisponibles
+                        .FirstOrDefault(a => a.AutorId == autorId);
+
+                    if (autor != null)
                     {
-                        clbAutores.SetItemChecked(
-                            i, libro.AutoresIds.Contains(autor.AutorId));
+                        _autoresSeleccionados.Add(autor);
                     }
                 }
 
-                // Marcar temas
-                for (int i = 0; i < clbTemas.Items.Count; i++)
+                MostrarAutoresSeleccionados();
+
+                txtBuscarAutor.Clear();
+                lstResultadosAutores.Visible = false;
+
+
+
+                // Cargar los temas del libro en el nuevo selector
+                _temasSeleccionados.Clear();
+
+                foreach (var temaId in libro.TemasIds)
                 {
-                    if (clbTemas.Items[i] is TemaItem tema)
+                    var tema = _temasDisponibles
+                        .FirstOrDefault(t => t.TemaId == temaId);
+
+                    if (tema != null)
                     {
-                        clbTemas.SetItemChecked(
-                            i, libro.TemasIds.Contains(tema.TemaId));
+                        _temasSeleccionados.Add(tema);
                     }
                 }
 
-                clbAutores.ClearSelected();
-                clbTemas.ClearSelected();
+                MostrarTemasSeleccionados();
+
+                txtBuscarTema.Clear();
+                lstResultadosTemas.Visible = false;
+
             }
             cboTipoLibro.Enabled = false;
         }
