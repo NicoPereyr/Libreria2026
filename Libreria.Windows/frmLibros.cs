@@ -110,7 +110,6 @@ namespace Libreria.Windows
             }
         }
 
-
         private void CargarEditoriales()
         {
             try
@@ -983,9 +982,6 @@ namespace Libreria.Windows
                     MessageBoxIcon.Error);
             }
         }
-
-
-
 
     }
 
