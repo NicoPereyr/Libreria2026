@@ -62,6 +62,43 @@ namespace Libreria.Windows
 
                 dgvLibros.DataSource = null;
                 dgvLibros.DataSource = libros;
+
+                // Ocultar el identificador interno
+                if (dgvLibros.Columns["LibroId"] != null)
+                {
+                    dgvLibros.Columns["LibroId"].Visible = false;
+                }
+
+                // Permitir que los textos largos ocupen varias líneas
+                dgvLibros.DefaultCellStyle.WrapMode =
+                    DataGridViewTriState.True;
+
+                // Ajustar automáticamente la altura de las filas
+                dgvLibros.AutoSizeRowsMode =
+                    DataGridViewAutoSizeRowsMode.AllCells;
+
+                // Distribuir las columnas en el espacio disponible
+                dgvLibros.AutoSizeColumnsMode =
+                    DataGridViewAutoSizeColumnsMode.Fill;
+
+                // Dar más espacio a los autores
+                if (dgvLibros.Columns["Autores"] != null)
+                {
+                    dgvLibros.Columns["Autores"].FillWeight = 180;
+                }
+
+                // Dar más espacio a los temas
+                if (dgvLibros.Columns["Temas"] != null)
+                {
+                    dgvLibros.Columns["Temas"].FillWeight = 150;
+                }
+
+                // Dar más espacio al título
+                if (dgvLibros.Columns["Titulo"] != null)
+                {
+                    dgvLibros.Columns["Titulo"].FillWeight = 150;
+                }
+
             }
             catch (Exception ex)
             {
@@ -96,8 +133,6 @@ namespace Libreria.Windows
                     MessageBoxIcon.Error);
             }
         }
-
-
 
         private void CargarAutores()
         {
@@ -362,6 +397,7 @@ namespace Libreria.Windows
             ActualizarCamposPorTipo();
         }
 
+
         private void ActualizarCamposPorTipo()
         {
             string tipo = cboTipoLibro.SelectedItem?.ToString() ?? "";
@@ -369,22 +405,21 @@ namespace Libreria.Windows
             bool esFisico = tipo == "Físico";
             bool esDigital = tipo == "Digital";
 
-            // Campos de libro físico
-            lblISBN.Visible = esFisico;
-            txtISBN.Visible = esFisico;
-            lblStock.Visible = esFisico;
-            nudStock.Visible = esFisico;
+            // Mostrar solamente el panel correspondiente
+            pnlLibroFisico.Visible = esFisico;
+            pnlLibroDigital.Visible = esDigital;
 
-            // Campos de libro digital
-            lblIdentificadorDigital.Visible = esDigital;
-            txtIdentificadorDigital.Visible = esDigital;
-            lblFormato.Visible = esDigital;
-            cboFormato.Visible = esDigital;
-            lblTamanioMB.Visible = esDigital;
-            nudTamanioMB.Visible = esDigital;
-            lblUrlDescarga.Visible = esDigital;
-            txtUrlDescarga.Visible = esDigital;
+            // Traer al frente el panel visible
+            if (esFisico)
+            {
+                pnlLibroFisico.BringToFront();
+            }
+            else if (esDigital)
+            {
+                pnlLibroDigital.BringToFront();
+            }
         }
+
 
 
         private void LimpiarControles()

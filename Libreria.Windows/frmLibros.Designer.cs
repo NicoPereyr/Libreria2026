@@ -41,35 +41,41 @@
             lblEditorial = new Label();
             cboEditorial = new ComboBox();
             chkActivo = new CheckBox();
-            lblISBN = new Label();
-            txtISBN = new TextBox();
-            lblStock = new Label();
-            nudStock = new NumericUpDown();
-            lblIdentificadorDigital = new Label();
-            txtIdentificadorDigital = new TextBox();
-            lblFormato = new Label();
-            cboFormato = new ComboBox();
-            lblTamanioMB = new Label();
-            nudTamanioMB = new NumericUpDown();
-            lblUrlDescarga = new Label();
-            txtUrlDescarga = new TextBox();
             btnNuevo = new Button();
             btnGuardar = new Button();
             btnEditar = new Button();
             btnEliminar = new Button();
             btnCancelar = new Button();
-            dgvLibros = new DataGridView();
             txtBuscarAutor = new TextBox();
             lstResultadosAutores = new ListBox();
             flpAutoresSeleccionados = new FlowLayoutPanel();
             flpTemasSeleccionados = new FlowLayoutPanel();
             lstResultadosTemas = new ListBox();
             txtBuscarTema = new TextBox();
+            pnlListadoLibros = new Panel();
+            dgvLibros = new DataGridView();
+            pnlLibroFisico = new Panel();
+            nudStock = new NumericUpDown();
+            lblStock = new Label();
+            txtISBN = new TextBox();
+            lblISBN = new Label();
+            pnlLibroDigital = new Panel();
+            txtUrlDescarga = new TextBox();
+            lblUrlDescarga = new Label();
+            nudTamanioMB = new NumericUpDown();
+            lblTamanioMB = new Label();
+            cboFormato = new ComboBox();
+            lblFormato = new Label();
+            txtIdentificadorDigital = new TextBox();
+            lblIdentificadorDigital = new Label();
             ((System.ComponentModel.ISupportInitialize)nudAnio).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudPrecio).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudTamanioMB).BeginInit();
+            pnlListadoLibros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLibros).BeginInit();
+            pnlLibroFisico.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
+            pnlLibroDigital.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudTamanioMB).BeginInit();
             SuspendLayout();
             // 
             // lblTipoLibro
@@ -195,114 +201,9 @@
             chkActivo.Text = "Activo";
             chkActivo.UseVisualStyleBackColor = true;
             // 
-            // lblISBN
-            // 
-            lblISBN.AutoSize = true;
-            lblISBN.Location = new Point(11, 349);
-            lblISBN.Name = "lblISBN";
-            lblISBN.Size = new Size(35, 15);
-            lblISBN.TabIndex = 13;
-            lblISBN.Text = "ISBN:";
-            // 
-            // txtISBN
-            // 
-            txtISBN.Location = new Point(52, 346);
-            txtISBN.MaxLength = 13;
-            txtISBN.Name = "txtISBN";
-            txtISBN.Size = new Size(200, 23);
-            txtISBN.TabIndex = 14;
-            // 
-            // lblStock
-            // 
-            lblStock.AutoSize = true;
-            lblStock.Location = new Point(11, 395);
-            lblStock.Name = "lblStock";
-            lblStock.Size = new Size(39, 15);
-            lblStock.TabIndex = 15;
-            lblStock.Text = "Stock:";
-            // 
-            // nudStock
-            // 
-            nudStock.Location = new Point(56, 393);
-            nudStock.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            nudStock.Name = "nudStock";
-            nudStock.Size = new Size(120, 23);
-            nudStock.TabIndex = 16;
-            // 
-            // lblIdentificadorDigital
-            // 
-            lblIdentificadorDigital.AutoSize = true;
-            lblIdentificadorDigital.Location = new Point(11, 430);
-            lblIdentificadorDigital.Name = "lblIdentificadorDigital";
-            lblIdentificadorDigital.Size = new Size(113, 15);
-            lblIdentificadorDigital.TabIndex = 17;
-            lblIdentificadorDigital.Text = "Identificador digital:";
-            // 
-            // txtIdentificadorDigital
-            // 
-            txtIdentificadorDigital.Location = new Point(130, 427);
-            txtIdentificadorDigital.MaxLength = 50;
-            txtIdentificadorDigital.Name = "txtIdentificadorDigital";
-            txtIdentificadorDigital.Size = new Size(200, 23);
-            txtIdentificadorDigital.TabIndex = 18;
-            // 
-            // lblFormato
-            // 
-            lblFormato.AutoSize = true;
-            lblFormato.Location = new Point(11, 466);
-            lblFormato.Name = "lblFormato";
-            lblFormato.Size = new Size(55, 15);
-            lblFormato.TabIndex = 19;
-            lblFormato.Text = "Formato:";
-            // 
-            // cboFormato
-            // 
-            cboFormato.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboFormato.FormattingEnabled = true;
-            cboFormato.Items.AddRange(new object[] { "PDF", "EPUB", "MOBI" });
-            cboFormato.Location = new Point(72, 463);
-            cboFormato.Name = "cboFormato";
-            cboFormato.Size = new Size(121, 23);
-            cboFormato.TabIndex = 20;
-            // 
-            // lblTamanioMB
-            // 
-            lblTamanioMB.AutoSize = true;
-            lblTamanioMB.Location = new Point(11, 500);
-            lblTamanioMB.Name = "lblTamanioMB";
-            lblTamanioMB.Size = new Size(79, 15);
-            lblTamanioMB.TabIndex = 21;
-            lblTamanioMB.Text = "Tamaño (MB)";
-            // 
-            // nudTamanioMB
-            // 
-            nudTamanioMB.DecimalPlaces = 2;
-            nudTamanioMB.Location = new Point(96, 498);
-            nudTamanioMB.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            nudTamanioMB.Name = "nudTamanioMB";
-            nudTamanioMB.Size = new Size(120, 23);
-            nudTamanioMB.TabIndex = 22;
-            // 
-            // lblUrlDescarga
-            // 
-            lblUrlDescarga.AutoSize = true;
-            lblUrlDescarga.Location = new Point(11, 532);
-            lblUrlDescarga.Name = "lblUrlDescarga";
-            lblUrlDescarga.Size = new Size(94, 15);
-            lblUrlDescarga.TabIndex = 23;
-            lblUrlDescarga.Text = "URL de descarga";
-            // 
-            // txtUrlDescarga
-            // 
-            txtUrlDescarga.Location = new Point(111, 529);
-            txtUrlDescarga.MaxLength = 500;
-            txtUrlDescarga.Name = "txtUrlDescarga";
-            txtUrlDescarga.Size = new Size(300, 23);
-            txtUrlDescarga.TabIndex = 24;
-            // 
             // btnNuevo
             // 
-            btnNuevo.Location = new Point(13, 578);
+            btnNuevo.Location = new Point(12, 464);
             btnNuevo.Name = "btnNuevo";
             btnNuevo.Size = new Size(100, 23);
             btnNuevo.TabIndex = 29;
@@ -311,7 +212,7 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(139, 578);
+            btnGuardar.Location = new Point(137, 464);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(100, 23);
             btnGuardar.TabIndex = 30;
@@ -320,7 +221,7 @@
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(262, 578);
+            btnEditar.Location = new Point(257, 464);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(100, 23);
             btnEditar.TabIndex = 31;
@@ -329,7 +230,7 @@
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(383, 578);
+            btnEliminar.Location = new Point(374, 464);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(100, 23);
             btnEliminar.TabIndex = 32;
@@ -338,27 +239,12 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(502, 578);
+            btnCancelar.Location = new Point(497, 464);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(100, 23);
             btnCancelar.TabIndex = 33;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
-            // 
-            // dgvLibros
-            // 
-            dgvLibros.AllowUserToAddRows = false;
-            dgvLibros.AllowUserToDeleteRows = false;
-            dgvLibros.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvLibros.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLibros.Location = new Point(20, 650);
-            dgvLibros.MultiSelect = false;
-            dgvLibros.Name = "dgvLibros";
-            dgvLibros.ReadOnly = true;
-            dgvLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLibros.Size = new Size(1040, 200);
-            dgvLibros.TabIndex = 34;
             // 
             // txtBuscarAutor
             // 
@@ -412,36 +298,182 @@
             txtBuscarTema.Size = new Size(250, 23);
             txtBuscarTema.TabIndex = 38;
             // 
+            // pnlListadoLibros
+            // 
+            pnlListadoLibros.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlListadoLibros.Controls.Add(dgvLibros);
+            pnlListadoLibros.Location = new Point(10, 530);
+            pnlListadoLibros.Name = "pnlListadoLibros";
+            pnlListadoLibros.Padding = new Padding(10);
+            pnlListadoLibros.Size = new Size(1000, 300);
+            pnlListadoLibros.TabIndex = 41;
+            // 
+            // dgvLibros
+            // 
+            dgvLibros.AllowUserToAddRows = false;
+            dgvLibros.AllowUserToDeleteRows = false;
+            dgvLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvLibros.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvLibros.Dock = DockStyle.Fill;
+            dgvLibros.Location = new Point(10, 10);
+            dgvLibros.MultiSelect = false;
+            dgvLibros.Name = "dgvLibros";
+            dgvLibros.ReadOnly = true;
+            dgvLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvLibros.Size = new Size(980, 280);
+            dgvLibros.TabIndex = 35;
+            // 
+            // pnlLibroFisico
+            // 
+            pnlLibroFisico.Controls.Add(nudStock);
+            pnlLibroFisico.Controls.Add(lblStock);
+            pnlLibroFisico.Controls.Add(txtISBN);
+            pnlLibroFisico.Controls.Add(lblISBN);
+            pnlLibroFisico.Location = new Point(13, 333);
+            pnlLibroFisico.Name = "pnlLibroFisico";
+            pnlLibroFisico.Size = new Size(350, 90);
+            pnlLibroFisico.TabIndex = 42;
+            // 
+            // nudStock
+            // 
+            nudStock.Location = new Point(214, 29);
+            nudStock.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            nudStock.Name = "nudStock";
+            nudStock.Size = new Size(120, 23);
+            nudStock.TabIndex = 20;
+            // 
+            // lblStock
+            // 
+            lblStock.AutoSize = true;
+            lblStock.Location = new Point(214, 11);
+            lblStock.Name = "lblStock";
+            lblStock.Size = new Size(39, 15);
+            lblStock.TabIndex = 19;
+            lblStock.Text = "Stock:";
+            // 
+            // txtISBN
+            // 
+            txtISBN.Location = new Point(3, 28);
+            txtISBN.MaxLength = 13;
+            txtISBN.Name = "txtISBN";
+            txtISBN.Size = new Size(200, 23);
+            txtISBN.TabIndex = 18;
+            // 
+            // lblISBN
+            // 
+            lblISBN.AutoSize = true;
+            lblISBN.Location = new Point(6, 10);
+            lblISBN.Name = "lblISBN";
+            lblISBN.Size = new Size(35, 15);
+            lblISBN.TabIndex = 17;
+            lblISBN.Text = "ISBN:";
+            // 
+            // pnlLibroDigital
+            // 
+            pnlLibroDigital.Controls.Add(txtUrlDescarga);
+            pnlLibroDigital.Controls.Add(lblUrlDescarga);
+            pnlLibroDigital.Controls.Add(nudTamanioMB);
+            pnlLibroDigital.Controls.Add(lblTamanioMB);
+            pnlLibroDigital.Controls.Add(cboFormato);
+            pnlLibroDigital.Controls.Add(lblFormato);
+            pnlLibroDigital.Controls.Add(txtIdentificadorDigital);
+            pnlLibroDigital.Controls.Add(lblIdentificadorDigital);
+            pnlLibroDigital.Location = new Point(13, 333);
+            pnlLibroDigital.Name = "pnlLibroDigital";
+            pnlLibroDigital.Size = new Size(537, 125);
+            pnlLibroDigital.TabIndex = 43;
+            // 
+            // txtUrlDescarga
+            // 
+            txtUrlDescarga.Location = new Point(222, 77);
+            txtUrlDescarga.MaxLength = 500;
+            txtUrlDescarga.Name = "txtUrlDescarga";
+            txtUrlDescarga.Size = new Size(300, 23);
+            txtUrlDescarga.TabIndex = 32;
+            // 
+            // lblUrlDescarga
+            // 
+            lblUrlDescarga.AutoSize = true;
+            lblUrlDescarga.Location = new Point(222, 59);
+            lblUrlDescarga.Name = "lblUrlDescarga";
+            lblUrlDescarga.Size = new Size(94, 15);
+            lblUrlDescarga.TabIndex = 31;
+            lblUrlDescarga.Text = "URL de descarga";
+            // 
+            // nudTamanioMB
+            // 
+            nudTamanioMB.DecimalPlaces = 2;
+            nudTamanioMB.Location = new Point(10, 77);
+            nudTamanioMB.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            nudTamanioMB.Name = "nudTamanioMB";
+            nudTamanioMB.Size = new Size(120, 23);
+            nudTamanioMB.TabIndex = 30;
+            // 
+            // lblTamanioMB
+            // 
+            lblTamanioMB.AutoSize = true;
+            lblTamanioMB.Location = new Point(10, 59);
+            lblTamanioMB.Name = "lblTamanioMB";
+            lblTamanioMB.Size = new Size(79, 15);
+            lblTamanioMB.TabIndex = 29;
+            lblTamanioMB.Text = "Tamaño (MB)";
+            // 
+            // cboFormato
+            // 
+            cboFormato.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboFormato.FormattingEnabled = true;
+            cboFormato.Items.AddRange(new object[] { "PDF", "EPUB", "MOBI" });
+            cboFormato.Location = new Point(222, 28);
+            cboFormato.Name = "cboFormato";
+            cboFormato.Size = new Size(121, 23);
+            cboFormato.TabIndex = 28;
+            // 
+            // lblFormato
+            // 
+            lblFormato.AutoSize = true;
+            lblFormato.Location = new Point(222, 7);
+            lblFormato.Name = "lblFormato";
+            lblFormato.Size = new Size(55, 15);
+            lblFormato.TabIndex = 27;
+            lblFormato.Text = "Formato:";
+            // 
+            // txtIdentificadorDigital
+            // 
+            txtIdentificadorDigital.Location = new Point(10, 28);
+            txtIdentificadorDigital.MaxLength = 50;
+            txtIdentificadorDigital.Name = "txtIdentificadorDigital";
+            txtIdentificadorDigital.Size = new Size(200, 23);
+            txtIdentificadorDigital.TabIndex = 26;
+            // 
+            // lblIdentificadorDigital
+            // 
+            lblIdentificadorDigital.AutoSize = true;
+            lblIdentificadorDigital.Location = new Point(10, 8);
+            lblIdentificadorDigital.Name = "lblIdentificadorDigital";
+            lblIdentificadorDigital.Size = new Size(113, 15);
+            lblIdentificadorDigital.TabIndex = 25;
+            lblIdentificadorDigital.Text = "Identificador digital:";
+            // 
             // frmLibros
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             ClientSize = new Size(1084, 861);
+            Controls.Add(pnlLibroDigital);
+            Controls.Add(pnlLibroFisico);
+            Controls.Add(pnlListadoLibros);
             Controls.Add(flpTemasSeleccionados);
             Controls.Add(lstResultadosTemas);
             Controls.Add(txtBuscarTema);
             Controls.Add(flpAutoresSeleccionados);
             Controls.Add(lstResultadosAutores);
             Controls.Add(txtBuscarAutor);
-            Controls.Add(dgvLibros);
             Controls.Add(btnCancelar);
             Controls.Add(btnEliminar);
             Controls.Add(btnEditar);
             Controls.Add(btnGuardar);
             Controls.Add(btnNuevo);
-            Controls.Add(txtUrlDescarga);
-            Controls.Add(lblUrlDescarga);
-            Controls.Add(nudTamanioMB);
-            Controls.Add(lblTamanioMB);
-            Controls.Add(cboFormato);
-            Controls.Add(lblFormato);
-            Controls.Add(txtIdentificadorDigital);
-            Controls.Add(lblIdentificadorDigital);
-            Controls.Add(nudStock);
-            Controls.Add(lblStock);
-            Controls.Add(txtISBN);
-            Controls.Add(lblISBN);
             Controls.Add(chkActivo);
             Controls.Add(cboEditorial);
             Controls.Add(lblEditorial);
@@ -462,9 +494,14 @@
             WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)nudAnio).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudPrecio).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudStock).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudTamanioMB).EndInit();
+            pnlListadoLibros.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvLibros).EndInit();
+            pnlLibroFisico.ResumeLayout(false);
+            pnlLibroFisico.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudStock).EndInit();
+            pnlLibroDigital.ResumeLayout(false);
+            pnlLibroDigital.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudTamanioMB).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -484,29 +521,32 @@
         private Label lblEditorial;
         private ComboBox cboEditorial;
         private CheckBox chkActivo;
-        private Label lblISBN;
-        private TextBox txtISBN;
-        private Label lblStock;
-        private NumericUpDown nudStock;
-        private Label lblIdentificadorDigital;
-        private TextBox txtIdentificadorDigital;
-        private Label lblFormato;
-        private ComboBox cboFormato;
-        private Label lblTamanioMB;
-        private NumericUpDown nudTamanioMB;
-        private Label lblUrlDescarga;
-        private TextBox txtUrlDescarga;
         private Button btnNuevo;
         private Button btnGuardar;
         private Button btnEditar;
         private Button btnEliminar;
         private Button btnCancelar;
-        private DataGridView dgvLibros;
         private TextBox txtBuscarAutor;
         private ListBox lstResultadosAutores;
         private FlowLayoutPanel flpAutoresSeleccionados;
         private FlowLayoutPanel flpTemasSeleccionados;
         private ListBox lstResultadosTemas;
         private TextBox txtBuscarTema;
+        private Panel pnlListadoLibros;
+        private DataGridView dgvLibros;
+        private Panel pnlLibroFisico;
+        private NumericUpDown nudStock;
+        private Label lblStock;
+        private TextBox txtISBN;
+        private Label lblISBN;
+        private Panel pnlLibroDigital;
+        private TextBox txtUrlDescarga;
+        private Label lblUrlDescarga;
+        private NumericUpDown nudTamanioMB;
+        private Label lblTamanioMB;
+        private ComboBox cboFormato;
+        private Label lblFormato;
+        private TextBox txtIdentificadorDigital;
+        private Label lblIdentificadorDigital;
     }
 }
