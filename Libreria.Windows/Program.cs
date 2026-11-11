@@ -55,6 +55,8 @@ namespace Libreria.Windows
             servicios.AddTransient<frmTemas>();
             servicios.AddTransient<frmLibros>();
             servicios.AddTransient<frmClientes>();
+            servicios.AddTransient<frmVentas>();
+            servicios.AddTransient<frmListadoVentas>();
 
             using var proveedor = servicios.BuildServiceProvider();
             using var alcance = proveedor.CreateScope();

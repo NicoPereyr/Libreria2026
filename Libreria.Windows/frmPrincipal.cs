@@ -19,6 +19,7 @@ namespace Libreria.Windows
             btnTemas.Click += btnTemas_Click;
             btnLibros.Click += btnLibros_Click;
             btnClientes.Click += btnClientes_Click;
+            btnVentas.Click += btnVentas_Click;
         }
 
         private void btnEditoriales_Click(object? sender, EventArgs e)
@@ -67,6 +68,17 @@ namespace Libreria.Windows
 
             using var formulario = scope.ServiceProvider
                 .GetRequiredService<frmClientes>();
+
+            formulario.ShowDialog(this);
+        }
+
+
+        private void btnVentas_Click(object? sender, EventArgs e)
+        {
+            using var scope = _serviceProvider.CreateScope();
+
+            using var formulario = scope.ServiceProvider
+                .GetRequiredService<frmVentas>();
 
             formulario.ShowDialog(this);
         }

@@ -33,6 +33,7 @@
             btnTemas = new Button();
             btnLibros = new Button();
             btnClientes = new Button();
+            btnVentas = new Button();
             SuspendLayout();
             // 
             // btnAutores
@@ -73,18 +74,28 @@
             // 
             // btnClientes
             // 
-            btnClientes.Location = new Point(285, 249);
+            btnClientes.Location = new Point(194, 249);
             btnClientes.Name = "btnClientes";
             btnClientes.Size = new Size(160, 70);
             btnClientes.TabIndex = 4;
             btnClientes.Text = "Clientes";
             btnClientes.UseVisualStyleBackColor = true;
             // 
+            // btnVentas
+            // 
+            btnVentas.Location = new Point(376, 249);
+            btnVentas.Name = "btnVentas";
+            btnVentas.Size = new Size(160, 70);
+            btnVentas.TabIndex = 5;
+            btnVentas.Text = "Ventas";
+            btnVentas.UseVisualStyleBackColor = true;
+            // 
             // frmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(738, 361);
+            Controls.Add(btnVentas);
             Controls.Add(btnClientes);
             Controls.Add(btnLibros);
             Controls.Add(btnTemas);
@@ -105,5 +116,6 @@
         private Button btnTemas;
         private Button btnLibros;
         private Button btnClientes;
+        private Button btnVentas;
     }
 }
