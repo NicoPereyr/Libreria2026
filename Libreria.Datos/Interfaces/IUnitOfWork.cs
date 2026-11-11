@@ -7,6 +7,8 @@
         ITemaRepositorio Temas { get; }
         ILibroRepositorio Libros { get; }
         IClienteRepositorio Clientes { get; }
+        IVentaRepositorio Ventas { get; }
+        IDetalleVentaRepositorio DetalleVentas { get; }
 
         void Guardar();
 

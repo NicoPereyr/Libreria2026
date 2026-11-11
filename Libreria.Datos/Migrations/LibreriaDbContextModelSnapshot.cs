@@ -213,6 +213,67 @@ namespace Libreria.Datos.Migrations
                     b.ToTable("Temas", (string)null);
                 });
 
+            modelBuilder.Entity("Libreria.Entidades.Ventas.DetalleVenta", b =>
+                {
+                    b.Property<int>("DetalleVentaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetalleVentaId"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LibroId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("VentaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DetalleVentaId");
+
+                    b.HasIndex("LibroId");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("DetalleVentas", (string)null);
+                });
+
+            modelBuilder.Entity("Libreria.Entidades.Ventas.Venta", b =>
+                {
+                    b.Property<int>("VentaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VentaId"));
+
+                    b.Property<bool>("Anulada")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaVenta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("VentaId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Ventas", (string)null);
+                });
+
             modelBuilder.Entity("LibroTema", b =>
                 {
                     b.Property<int>("LibroId")
@@ -303,6 +364,36 @@ namespace Libreria.Datos.Migrations
                     b.Navigation("Editorial");
                 });
 
+            modelBuilder.Entity("Libreria.Entidades.Ventas.DetalleVenta", b =>
+                {
+                    b.HasOne("Libreria.Entidades.Libros.Libro", "Libro")
+                        .WithMany()
+                        .HasForeignKey("LibroId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Libreria.Entidades.Ventas.Venta", "Venta")
+                        .WithMany("Detalles")
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Libro");
+
+                    b.Navigation("Venta");
+                });
+
+            modelBuilder.Entity("Libreria.Entidades.Ventas.Venta", b =>
+                {
+                    b.HasOne("Libreria.Entidades.Clientes.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
             modelBuilder.Entity("LibroTema", b =>
                 {
                     b.HasOne("Libreria.Entidades.Libros.Libro", null)
@@ -316,6 +407,11 @@ namespace Libreria.Datos.Migrations
                         .HasForeignKey("TemasTemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Libreria.Entidades.Ventas.Venta", b =>
+                {
+                    b.Navigation("Detalles");
                 });
 #pragma warning restore 612, 618
         }

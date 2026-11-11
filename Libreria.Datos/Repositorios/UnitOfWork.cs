@@ -13,6 +13,8 @@ namespace Libreria.Datos.Repositorios
         public ITemaRepositorio Temas { get; }
         public ILibroRepositorio Libros { get; }
         public IClienteRepositorio Clientes { get; }
+        public IVentaRepositorio Ventas { get; }
+        public IDetalleVentaRepositorio DetalleVentas { get; }
 
         public UnitOfWork(
             LibreriaDbContext context,
@@ -20,7 +22,9 @@ namespace Libreria.Datos.Repositorios
             IEditorialRepositorio editoriales,
             ITemaRepositorio temas,
             ILibroRepositorio libroRepositorio,
-            IClienteRepositorio clienteRepositorio)
+            IClienteRepositorio clienteRepositorio,
+            IVentaRepositorio ventaRepositorio,
+            IDetalleVentaRepositorio detalleVentaRepositorio)
         {
             _context = context;
             Autores = autores;
@@ -28,6 +32,8 @@ namespace Libreria.Datos.Repositorios
             Temas = temas;
             Libros = libroRepositorio;
             Clientes = clienteRepositorio;
+            Ventas = ventaRepositorio;
+            DetalleVentas = detalleVentaRepositorio;
         }
 
         public void Guardar()

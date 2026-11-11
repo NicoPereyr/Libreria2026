@@ -5,6 +5,7 @@ using Libreria.Entidades.Temas;
 using Microsoft.EntityFrameworkCore;
 using Libreria.Entidades.Libros;
 using Libreria.Entidades.Clientes;
+using Libreria.Entidades.Ventas;
 
 namespace Libreria.Datos.DbContext
 {
@@ -29,6 +30,8 @@ namespace Libreria.Datos.DbContext
         public DbSet<LibroDigital> LibrosDigitales { get; set; } = null!;
 
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Venta> Ventas { get; set; }
+        public DbSet<DetalleVenta> DetalleVentas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -69,6 +72,57 @@ namespace Libreria.Datos.DbContext
                 entity.HasIndex(c => c.Documento)
                     .IsUnique();
             });
+
+            modelBuilder.Entity<Venta>(entity =>
+            {
+                entity.ToTable("Ventas");
+
+                entity.HasKey(v => v.VentaId);
+
+                entity.Property(v => v.FechaVenta)
+                    .IsRequired();
+
+                entity.Property(v => v.Total)
+                    .HasColumnType("decimal(18,2)");
+
+                entity.Property(v => v.Anulada)
+                    .HasDefaultValue(false);
+
+                // Relación Venta -> Cliente
+                entity.HasOne(v => v.Cliente)
+                    .WithMany()
+                    .HasForeignKey(v => v.ClienteId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                // Relación Venta -> DetalleVentas
+                entity.HasMany(v => v.Detalles)
+                    .WithOne(d => d.Venta)
+                    .HasForeignKey(d => d.VentaId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<DetalleVenta>(entity =>
+            {
+                entity.ToTable("DetalleVentas");
+
+                entity.HasKey(d => d.DetalleVentaId);
+
+                entity.Property(d => d.Cantidad)
+                    .IsRequired();
+
+                entity.Property(d => d.PrecioUnitario)
+                    .HasColumnType("decimal(18,2)");
+
+                entity.Property(d => d.Subtotal)
+                    .HasColumnType("decimal(18,2)");
+
+                // Relación DetalleVenta -> Libro
+                entity.HasOne(d => d.Libro)
+                    .WithMany()
+                    .HasForeignKey(d => d.LibroId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
 
         }
     }
