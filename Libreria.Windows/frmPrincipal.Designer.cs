@@ -22,6 +22,16 @@ namespace Libreria.Windows
         private Label lblSeccion;
         private Label lblPie;
 
+        private Panel tarjetaLibros;
+        private Panel tarjetaClientes;
+        private Panel tarjetaVentas;
+        private Label tituloLibros;
+        private Label descLibros;
+        private Label tituloClientes;
+        private Label descClientes;
+        private Label tituloVentas;
+        private Label descVentas;
+
         private Button btnAutores;
         private Button btnEditoriales;
         private Button btnTemas;
@@ -66,6 +76,15 @@ namespace Libreria.Windows
             btnLibros = new Button();
             btnClientes = new Button();
             btnVentas = new Button();
+            tarjetaLibros = new Panel();
+            tarjetaClientes = new Panel();
+            tarjetaVentas = new Panel();
+            tituloLibros = new Label();
+            descLibros = new Label();
+            tituloClientes = new Label();
+            descClientes = new Label();
+            tituloVentas = new Label();
+            descVentas = new Label();
 
             SuspendLayout();
 
@@ -142,49 +161,75 @@ namespace Libreria.Windows
             btnVentas.Size = new Size(206, 48);
             btnVentas.TabIndex = 5;
 
-            // Estilo común del menú
-            Button[] botones =
-            {
-                btnLibros,
-                btnAutores,
-                btnEditoriales,
-                btnTemas,
-                btnClientes,
-                btnVentas
-            };
+            // Estilo de botones: propiedades explícitas compatibles con el diseñador
+            btnLibros.FlatStyle = FlatStyle.Flat;
+            btnLibros.FlatAppearance.BorderSize = 0;
+            btnLibros.FlatAppearance.MouseOverBackColor = Color.FromArgb(48, 72, 103);
+            btnLibros.BackColor = Color.FromArgb(23, 38, 59);
+            btnLibros.ForeColor = Color.White;
+            btnLibros.Font = new Font("Segoe UI", 11F);
+            btnLibros.TextAlign = ContentAlignment.MiddleLeft;
+            btnLibros.Cursor = Cursors.Hand;
+            btnLibros.UseVisualStyleBackColor = false;
+            btnLibros.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
-            foreach (Button boton in botones)
-            {
-                boton.FlatStyle = FlatStyle.Flat;
-                boton.FlatAppearance.BorderSize = 0;
-                boton.FlatAppearance.MouseOverBackColor =
-                    Color.FromArgb(48, 72, 103);
+            btnAutores.FlatStyle = FlatStyle.Flat;
+            btnAutores.FlatAppearance.BorderSize = 0;
+            btnAutores.FlatAppearance.MouseOverBackColor = Color.FromArgb(48, 72, 103);
+            btnAutores.BackColor = Color.FromArgb(23, 38, 59);
+            btnAutores.ForeColor = Color.White;
+            btnAutores.Font = new Font("Segoe UI", 11F);
+            btnAutores.TextAlign = ContentAlignment.MiddleLeft;
+            btnAutores.Cursor = Cursors.Hand;
+            btnAutores.UseVisualStyleBackColor = false;
+            btnAutores.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
-                boton.BackColor =
-                    Color.FromArgb(23, 38, 59);
+            btnEditoriales.FlatStyle = FlatStyle.Flat;
+            btnEditoriales.FlatAppearance.BorderSize = 0;
+            btnEditoriales.FlatAppearance.MouseOverBackColor = Color.FromArgb(48, 72, 103);
+            btnEditoriales.BackColor = Color.FromArgb(23, 38, 59);
+            btnEditoriales.ForeColor = Color.White;
+            btnEditoriales.Font = new Font("Segoe UI", 11F);
+            btnEditoriales.TextAlign = ContentAlignment.MiddleLeft;
+            btnEditoriales.Cursor = Cursors.Hand;
+            btnEditoriales.UseVisualStyleBackColor = false;
+            btnEditoriales.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
-                boton.ForeColor = Color.White;
-                boton.Font = new Font(
-                    "Segoe UI", 11F);
+            btnTemas.FlatStyle = FlatStyle.Flat;
+            btnTemas.FlatAppearance.BorderSize = 0;
+            btnTemas.FlatAppearance.MouseOverBackColor = Color.FromArgb(48, 72, 103);
+            btnTemas.BackColor = Color.FromArgb(23, 38, 59);
+            btnTemas.ForeColor = Color.White;
+            btnTemas.Font = new Font("Segoe UI", 11F);
+            btnTemas.TextAlign = ContentAlignment.MiddleLeft;
+            btnTemas.Cursor = Cursors.Hand;
+            btnTemas.UseVisualStyleBackColor = false;
+            btnTemas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
-                boton.TextAlign =
-                    ContentAlignment.MiddleLeft;
+            btnClientes.FlatStyle = FlatStyle.Flat;
+            btnClientes.FlatAppearance.BorderSize = 0;
+            btnClientes.FlatAppearance.MouseOverBackColor = Color.FromArgb(48, 72, 103);
+            btnClientes.BackColor = Color.FromArgb(23, 38, 59);
+            btnClientes.ForeColor = Color.White;
+            btnClientes.Font = new Font("Segoe UI", 11F);
+            btnClientes.TextAlign = ContentAlignment.MiddleLeft;
+            btnClientes.Cursor = Cursors.Hand;
+            btnClientes.UseVisualStyleBackColor = false;
+            btnClientes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
-                boton.Cursor = Cursors.Hand;
-                boton.UseVisualStyleBackColor = false;
+            btnVentas.FlatStyle = FlatStyle.Flat;
+            btnVentas.FlatAppearance.BorderSize = 0;
+            btnVentas.FlatAppearance.MouseOverBackColor = Color.FromArgb(48, 72, 103);
+            btnVentas.BackColor = Color.FromArgb(23, 38, 59);
+            btnVentas.ForeColor = Color.White;
+            btnVentas.Font = new Font("Segoe UI", 11F);
+            btnVentas.TextAlign = ContentAlignment.MiddleLeft;
+            btnVentas.Cursor = Cursors.Hand;
+            btnVentas.UseVisualStyleBackColor = false;
+            btnVentas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
-                boton.Anchor =
-                    AnchorStyles.Top |
-                    AnchorStyles.Left |
-                    AnchorStyles.Right;
-            }
-
-            // Destacar Ventas
-            btnVentas.BackColor =
-                Color.FromArgb(37, 99, 180);
-
-            btnVentas.FlatAppearance.MouseOverBackColor =
-                Color.FromArgb(51, 119, 207);
+            btnVentas.BackColor = Color.FromArgb(37, 99, 180);
+            btnVentas.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 119, 207);
 
             // Pie del menú
             lblPie.Text = "Librería 2026  |  Gestión";
@@ -319,23 +364,23 @@ namespace Libreria.Windows
             tblTarjetas.ColumnStyles.Add(
                 new ColumnStyle(SizeType.Percent, 33.33F));
 
-            Panel tarjetaLibros = new Panel();
+            tarjetaLibros.Name = "tarjetaLibros";
             tarjetaLibros.Dock = DockStyle.Fill;
             tarjetaLibros.BackColor = Color.White;
             tarjetaLibros.Margin = new Padding(0, 8, 10, 8);
 
-            Panel tarjetaClientes = new Panel();
+            tarjetaClientes.Name = "tarjetaClientes";
             tarjetaClientes.Dock = DockStyle.Fill;
             tarjetaClientes.BackColor = Color.White;
             tarjetaClientes.Margin = new Padding(5, 8, 5, 8);
 
-            Panel tarjetaVentas = new Panel();
+            tarjetaVentas.Name = "tarjetaVentas";
             tarjetaVentas.Dock = DockStyle.Fill;
             tarjetaVentas.BackColor = Color.White;
             tarjetaVentas.Margin = new Padding(10, 8, 0, 8);
 
             // Tarjeta Libros
-            Label tituloLibros = new Label();
+            tituloLibros.Name = "tituloLibros";
             tituloLibros.Text = "LIBROS";
             tituloLibros.Font = new Font(
                 "Segoe UI", 11F, FontStyle.Bold);
@@ -344,7 +389,7 @@ namespace Libreria.Windows
             tituloLibros.Location = new Point(18, 22);
             tituloLibros.Size = new Size(180, 28);
 
-            Label descLibros = new Label();
+            descLibros.Name = "descLibros";
             descLibros.Text =
                 "Catálogo de libros\r\nfísicos y digitales";
             descLibros.Font = new Font(
@@ -362,7 +407,7 @@ namespace Libreria.Windows
             tarjetaLibros.Controls.Add(descLibros);
 
             // Tarjeta Clientes
-            Label tituloClientes = new Label();
+            tituloClientes.Name = "tituloClientes";
             tituloClientes.Text = "CLIENTES";
             tituloClientes.Font = new Font(
                 "Segoe UI", 11F, FontStyle.Bold);
@@ -371,7 +416,7 @@ namespace Libreria.Windows
             tituloClientes.Location = new Point(18, 22);
             tituloClientes.Size = new Size(180, 28);
 
-            Label descClientes = new Label();
+            descClientes.Name = "descClientes";
             descClientes.Text =
                 "Registro, administración\r\ny seguimiento de clientes";
             descClientes.Font = new Font(
@@ -389,7 +434,7 @@ namespace Libreria.Windows
             tarjetaClientes.Controls.Add(descClientes);
 
             // Tarjeta Ventas
-            Label tituloVentas = new Label();
+            tituloVentas.Name = "tituloVentas";
             tituloVentas.Text = "VENTAS";
             tituloVentas.Font = new Font(
                 "Segoe UI", 11F, FontStyle.Bold);
@@ -398,7 +443,7 @@ namespace Libreria.Windows
             tituloVentas.Location = new Point(18, 22);
             tituloVentas.Size = new Size(180, 28);
 
-            Label descVentas = new Label();
+            descVentas.Name = "descVentas";
             descVentas.Text =
                 "Registro de operaciones\r\ny control de stock";
             descVentas.Font = new Font(
