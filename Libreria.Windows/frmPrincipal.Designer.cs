@@ -32,6 +32,7 @@
             btnEditoriales = new Button();
             btnTemas = new Button();
             btnLibros = new Button();
+            btnClientes = new Button();
             SuspendLayout();
             // 
             // btnAutores
@@ -70,11 +71,21 @@
             btnLibros.Text = "Libros";
             btnLibros.UseVisualStyleBackColor = true;
             // 
+            // btnClientes
+            // 
+            btnClientes.Location = new Point(285, 249);
+            btnClientes.Name = "btnClientes";
+            btnClientes.Size = new Size(160, 70);
+            btnClientes.TabIndex = 4;
+            btnClientes.Text = "Clientes";
+            btnClientes.UseVisualStyleBackColor = true;
+            // 
             // frmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(738, 361);
+            Controls.Add(btnClientes);
             Controls.Add(btnLibros);
             Controls.Add(btnTemas);
             Controls.Add(btnEditoriales);
@@ -93,5 +104,6 @@
         private Button btnEditoriales;
         private Button btnTemas;
         private Button btnLibros;
+        private Button btnClientes;
     }
 }

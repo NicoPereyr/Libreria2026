@@ -12,19 +12,22 @@ namespace Libreria.Datos.Repositorios
         public IEditorialRepositorio Editoriales { get; }
         public ITemaRepositorio Temas { get; }
         public ILibroRepositorio Libros { get; }
+        public IClienteRepositorio Clientes { get; }
 
         public UnitOfWork(
             LibreriaDbContext context,
             IAutorRepositorio autores,
             IEditorialRepositorio editoriales,
             ITemaRepositorio temas,
-            ILibroRepositorio libroRepositorio)
+            ILibroRepositorio libroRepositorio,
+            IClienteRepositorio clienteRepositorio)
         {
             _context = context;
             Autores = autores;
             Editoriales = editoriales;
             Temas = temas;
             Libros = libroRepositorio;
+            Clientes = clienteRepositorio;
         }
 
         public void Guardar()
